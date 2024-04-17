@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/04/01 18:19:13.000.659,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/01 18:32:45.000.251,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/01 18:45:32.000.111,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/02 19:24:16.000.325,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/03 15:01:12.000.041,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/03 15:36:41.000.289,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/03 15:38:39.000.458,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\telaTeste.dfm</Transaction>
+    <Transaction>2024/04/03 15:38:39.000.458,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\telaTeste.pas</Transaction>
+    <Transaction>2024/04/03 17:16:13.000.067,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit6.pas</Transaction>
+    <Transaction>2024/04/03 17:16:35.000.629,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit6.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\telaLogin.dfm</Transaction>
+    <Transaction>2024/04/03 17:16:35.000.629,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit6.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\telaLogin.pas</Transaction>
+    <Transaction>2024/04/03 17:31:30.000.840,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Project12.dproj=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Project12.dproj</Transaction>
+    <Transaction>2024/04/03 17:39:05.000.465,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit5.pas</Transaction>
+    <Transaction>2024/04/04 22:13:02.000.758,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/04 22:13:27.000.828,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\formMenu.dfm</Transaction>
+    <Transaction>2024/04/04 22:13:27.000.828,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\formMenu.pas</Transaction>
+    <Transaction>2024/04/04 23:15:40.000.577,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/04 23:16:45.000.677,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\unitSacar.dfm</Transaction>
+    <Transaction>2024/04/04 23:16:45.000.677,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\unitSacar.pas</Transaction>
+    <Transaction>2024/04/14 15:31:02.000.688,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/14 15:32:44.000.090,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\formExtrato.dfm</Transaction>
+    <Transaction>2024/04/14 15:32:44.000.090,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\formExtrato.pas</Transaction>
+    <Transaction>2024/04/15 19:53:11.000.584,=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/15 19:55:03.000.627,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\UnitTransferir.pas=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/04/15 19:55:03.000.627,C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\UnitTransferir.dfm=C:\Users\Andre\OneDrive\Documentos\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
