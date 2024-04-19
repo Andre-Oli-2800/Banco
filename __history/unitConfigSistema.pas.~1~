@@ -1,0 +1,30 @@
+unit unitConfigSistema;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.DBCtrls, Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TForm5 = class(TForm)
+    DBCheckBox1: TDBCheckBox;
+    Label1: TLabel;
+    Panel1: TPanel;
+    DBNavigator1: TDBNavigator;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+end.

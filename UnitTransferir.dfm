@@ -2,7 +2,7 @@ object formTransferir: TformTransferir
   Left = 0
   Top = 0
   Caption = 'formTransferir'
-  ClientHeight = 555
+  ClientHeight = 476
   ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,7 +14,7 @@ object formTransferir: TformTransferir
   TextHeight = 15
   object Label1: TLabel
     Left = 188
-    Top = 315
+    Top = 195
     Width = 45
     Height = 28
     Caption = 'Valor'
@@ -25,27 +25,8 @@ object formTransferir: TformTransferir
     Font.Style = []
     ParentFont = False
   end
-  object Label2: TLabel
-    Left = 216
-    Top = 208
-    Width = 3
-    Height = 15
-  end
-  object Label3: TLabel
-    Left = 188
-    Top = 195
-    Width = 70
-    Height = 28
-    Caption = 'Ag'#234'ncia'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-  end
   object Label4: TLabel
-    Left = 204
+    Left = 188
     Top = 139
     Width = 54
     Height = 28
@@ -58,7 +39,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object lblSaldo: TLabel
-    Left = 364
+    Left = 438
     Top = 139
     Width = 11
     Height = 28
@@ -71,11 +52,11 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 224
-    Top = 43
-    Width = 187
+    Left = 216
+    Top = 51
+    Width = 241
     Height = 37
-    Caption = 'Sacar Dinheiro'
+    Caption = 'Transferir Dinheiro'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -27
@@ -89,22 +70,9 @@ object formTransferir: TformTransferir
     Width = 3
     Height = 15
   end
-  object Label8: TLabel
-    Left = 188
-    Top = 251
-    Width = 52
-    Height = 28
-    Caption = 'Conta'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-  end
   object lblMsg: TLabel
-    Left = 120
-    Top = 462
+    Left = 188
+    Top = 414
     Width = 12
     Height = 28
     Caption = '...'
@@ -115,48 +83,22 @@ object formTransferir: TformTransferir
     Font.Style = []
     ParentFont = False
   end
-  object txtValor: TEdit
-    Left = 280
-    Top = 312
-    Width = 201
-    Height = 36
+  object Label5: TLabel
+    Left = 188
+    Top = 259
+    Width = 60
+    Height = 28
+    Caption = 'Celular'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 0
-  end
-  object txtAgencia: TEdit
-    Left = 280
-    Top = 192
-    Width = 201
-    Height = 36
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-  end
-  object txtConta: TEdit
-    Left = 280
-    Top = 248
-    Width = 201
-    Height = 36
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
   end
   object btnTransferir: TButton
-    Left = 254
-    Top = 376
+    Left = 280
+    Top = 337
     Width = 121
     Height = 41
     Caption = 'Transferir'
@@ -166,7 +108,37 @@ object formTransferir: TformTransferir
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 0
     OnClick = btnTransferirClick
+  end
+  object txtValor: TNumberBox
+    Left = 280
+    Top = 192
+    Width = 169
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Mode = nbmFloat
+    ParentFont = False
+    TabOrder = 1
+  end
+  object txtCelular: TMaskEdit
+    Left = 280
+    Top = 256
+    Width = 169
+    Height = 36
+    EditMask = '(##)#####-####;1;_'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    MaxLength = 14
+    ParentFont = False
+    TabOrder = 2
+    Text = '(  )     -    '
   end
 end

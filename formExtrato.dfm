@@ -25,7 +25,7 @@ object formExtratoConta: TformExtratoConta
     Font.Style = [fsBold]
     ParentFont = False
   end
-  object DBGrid1: TDBGrid
+  object gridExtrato: TDBGrid
     Left = 8
     Top = 64
     Width = 612
@@ -48,31 +48,25 @@ object formExtratoConta: TformExtratoConta
       item
         Expanded = False
         FieldName = 'processo'
-        Width = 89
+        Width = 154
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'valor'
-        Width = 125
+        Width = 183
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'horario'
-        Width = 249
-        Visible = True
-      end
-      item
-        Expanded = False
-        FieldName = 'cpf'
-        Width = 175
+        Width = 359
         Visible = True
       end>
   end
   object btnExportar: TButton
-    Left = 272
-    Top = 360
+    Left = 280
+    Top = 384
     Width = 105
     Height = 41
     Caption = 'Exportar'
@@ -83,5 +77,13 @@ object formExtratoConta: TformExtratoConta
     Font.Style = []
     ParentFont = False
     TabOrder = 1
+    OnClick = btnExportarClick
+  end
+  object barraProgresso: TProgressBar
+    Left = 96
+    Top = 341
+    Width = 465
+    Height = 21
+    TabOrder = 2
   end
 end

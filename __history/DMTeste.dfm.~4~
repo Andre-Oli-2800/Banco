@@ -1,0 +1,48 @@
+object Form6: TForm6
+  Left = 0
+  Top = 0
+  Caption = 'Form6'
+  ClientHeight = 231
+  ClientWidth = 505
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object FDQuery1: TFDQuery
+    Connection = FDConnection1
+    Left = 168
+    Top = 32
+  end
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=testeInsert'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 328
+    Top = 112
+  end
+  object FDTable1: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = FDConnection1
+    TableName = 'testeInsert.teste'
+    Left = 160
+    Top = 112
+  end
+  object DataSource1: TDataSource
+    DataSet = FDTable1
+    Left = 240
+    Top = 128
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\wamp\bin\mysql\mysql5.7.40\lib\libmysql.dll'
+    Left = 264
+    Top = 32
+  end
+end

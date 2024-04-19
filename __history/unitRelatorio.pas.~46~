@@ -1,0 +1,61 @@
+unit unitRelatorio;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, QuickRpt, QRCtrls,
+  Vcl.ExtCtrls, QRPDFFilt;
+
+type
+  TformRelatorio = class(TForm)
+    Button1: TButton;
+    qp: TQuickRep;
+    QRLabel1: TQRLabel;
+    QRLabel2: TQRLabel;
+    QRLabel3: TQRLabel;
+    QRLabel4: TQRLabel;
+    QRPDFFilter1: TQRPDFFilter;
+    band: TQRBand;
+    QRDBText1: TQRDBText;
+    salvarDir: TSaveDialog;
+    procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formRelatorio: TformRelatorio;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+
+
+procedure TformRelatorio.Button1Click(Sender: TObject);
+var
+nomeArq: String;
+begin
+qp.Preview;
+if salvarDir.Execute then
+begin
+//SaveToFile(SalvarDir.FileName);
+nomeArq:=salvarDir.FileName := 'TestessssssPDF';
+qp.ExportToFilter(TQRPDFDocumentFilter.Create(SalvarDir.FileName +'.PDF'));
+end;
+//formRelatorio.ExportToFilter(TQRPDFDocumentFilter.Create('C:/teste.pdf'));
+end;
+
+procedure TformRelatorio.FormShow(Sender: TObject);
+begin
+//qp.Preview;
+end;
+
+end.

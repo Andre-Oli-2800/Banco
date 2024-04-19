@@ -1,0 +1,225 @@
+unit unitEstoqueProdutos;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.DBCtrls,
+  Vcl.Mask, Data.DB, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, Vcl.Buttons,
+  System.ImageList, Vcl.ImgList;
+
+type
+  TformEstoqueProdutos = class(TForm)
+    lookProduto: TDBLookupComboBox;
+    Panel1: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label4: TLabel;
+    Label3: TLabel;
+    txtQtd: TDBEdit;
+    lblQtd: TLabel;
+    DBGrid1: TDBGrid;
+    btnNovo: TButton;
+    btnInserir: TButton;
+    Button1: TButton;
+    Label5: TLabel;
+    Label6: TLabel;
+    dtValidade: TDateTimePicker;
+    dtFabricacao: TDateTimePicker;
+    Button2: TButton;
+    Button3: TButton;
+    Button4: TButton;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    Label7: TLabel;
+    txtLote: TEdit;
+    procedure lcbSomarProdutoClick(Sender: TObject);
+    procedure btnNovoClick(Sender: TObject);
+    procedure btnInserirClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+      DataCol: Integer; Column: TColumn; State: TGridDrawState);
+    procedure DBGrid1CellClick(Column: TColumn);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formEstoqueProdutos: TformEstoqueProdutos;
+  x: boolean;
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure TformEstoqueProdutos.btnInserirClick(Sender: TObject);
+begin
+  DM.sqlInserirProduto.SQL.clear;
+  DM.sqlInserirProduto.SQL.add('insert into inserirproduto(idProduto,qtd,fabricacao,validade,lote)');
+  DM.sqlInserirProduto.SQL.add('values (' +quotedstr(lookProduto.KeyValue)+','+quotedstr(txtQtd.Text)+',:pFabricacao,:pValidade'+','+txtLote.text+')');
+  DM.sqlInserirProduto.ParamByName('pFabricacao').Value := FormatDateTime('YYYY-MM-DD',dtFabricacao.Date);
+  DM.sqlInserirProduto.ParamByName('pValidade').Value := FormatDateTime('YYYY-MM-DD',dtValidade.Date);
+  DM.sqlInserirProduto.execSQL;
+  DM.tbInserirProduto.refresh;
+end;
+
+procedure TformEstoqueProdutos.btnNovoClick(Sender: TObject);
+begin
+DM.tbInserirProduto.Insert;
+
+end;
+
+procedure TformEstoqueProdutos.Button1Click(Sender: TObject);
+
+var
+valorLookup: String;
+quantComprada,somaQtd: integer;
+begin
+  somaQtd:=0;
+  quantComprada:=0;
+  valorLookup:= lookProduto.keyValue;
+
+
+  DM.tbInserirProduto.First;
+
+  if lookProduto.text = '' then
+  begin
+  showMessage('Selecione um produto!');
+  exit;
+  end;
+
+  while not DM.tbInserirProduto.Eof do
+  begin
+
+     if DM.tbInserirProduto.fieldbyname('idProduto').asString = valorLookup  then
+     begin
+       somaQtd := somaQtd + DM.tbInserirProduto.fieldbyName('qtd').Value;
+       DM.tbInserirProduto.Next;
+     end
+     else
+     begin
+       DM.tbInserirProduto.Next;
+     end;
+  end;
+
+  DM.tbComprarProduto.First;
+  while not DM.tbComprarProduto.Eof do
+  begin
+    if DM.tbComprarProduto.fieldbyname('idProduto').asString = valorLookup  then
+    begin
+     quantComprada := quantComprada + DM.tbComprarProduto.fieldbyName('qtd').Value;
+     DM.tbComprarProduto.Next;
+    end
+    else
+    begin
+     DM.tbComprarProduto.Next;
+    end;
+  end;
+     somaQtd:=somaQtd-quantComprada;
+     lblQtd.Caption:= InttoStr(somaQtd);
+
+end;
+
+procedure TformEstoqueProdutos.Button2Click(Sender: TObject);
+var
+id:String;
+begin
+ DM.tbInserirProduto.SQL.clear;
+  DM.tbInserirProduto.SQL.add('select id from inserirproduto where nomeProduto = ' +quotedstr(lookProduto.KeyValue));
+  DM.tbInserirProduto.Open;
+  id := DM.tbInserirProduto.fieldbyname('id').AsString;
+
+  DM.sqlInserirProduto.SQL.clear;
+  DM.sqlInserirProduto.SQL.add('update inserirproduto set idProduto = '+ quotedstr(lookProduto.KeyValue)+',qtd = '+quotedstr(txtQtd.Text));
+  DM.sqlInserirProduto.SQL.add(',fabricacao = :pFabricacao, validade = :pValidade where id = '+id);
+  DM.sqlInserirProduto.ParamByName('pFabricacao').Value := FormatDateTime('YYYY-MM-DD',dtFabricacao.Date);
+  DM.sqlInserirProduto.ParamByName('pValidade').Value := FormatDateTime('YYYY-MM-DD',dtValidade.Date);
+  DM.sqlInserirProduto.execSQL;
+  DM.tbInserirProduto.refresh;
+end;
+
+procedure TformEstoqueProdutos.Button3Click(Sender: TObject);
+begin
+DM.tbInserirProduto.post;
+end;
+
+procedure TformEstoqueProdutos.Button4Click(Sender: TObject);
+begin
+DM.tbInserirProduto.Edit;
+end;
+
+procedure TformEstoqueProdutos.DBGrid1CellClick(Column: TColumn);
+begin
+x := true;
+end;
+
+procedure TformEstoqueProdutos.DBGrid1DrawColumnCell(Sender: TObject;
+  const Rect: TRect; DataCol: Integer; Column: TColumn; State: TGridDrawState);
+begin
+begin
+    if DM.tbInserirProduto.FieldByName('validade').AsDateTime > Now then
+    begin
+    DBGrid1.Canvas.Font.Color:=clGreen;
+    end
+    else
+    if (DM.tbInserirProduto.FieldByName('validade').AsDateTime > Now-10) and (DM.tbInserirProduto.FieldByName('validade').AsDateTime < Now) then
+    begin
+      DBGrid1.Canvas.Font.Color:=clWebOrangeRed;
+    end
+    else
+    begin
+      DBGrid1.Canvas.Font.Color:=clWebDarkRed;
+    end;
+    end;
+    DbGrid1.Canvas.Font.Style := [fsBold];
+    DBGrid1.Canvas.FillRect(Rect);
+    TDBGrid(Sender).DefaultDrawColumnCell(Rect,DataCol,Column,State);
+
+end;
+
+
+procedure TformEstoqueProdutos.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+if key=(VK_Escape) then
+close;
+end;
+
+procedure TformEstoqueProdutos.lcbSomarProdutoClick(Sender: TObject);
+//var
+//somaQtd: integer;
+begin
+//  DM.sqlInserirProduto.open;
+//  somaQtd:=0;
+//  DM.sqlInserirProduto.First;
+
+//  while not DM.tbInserirProduto.Eof do
+//  begin
+
+//     if lcbSomarProduto.Text = 'Biscoito' then
+//     //if lcbSomarProduto.Text = DM.tbProdutos.fieldbyName('nome').Value then
+
+//    begin
+//     somaQtd := somaQtd + DM.tbInserirProduto.fieldbyName('qtd').Value;
+//     end;
+
+//     DM.tbInserirProduto.Next;
+//  end;
+//  lblQtd.Caption:= InttoStr(somaQtd);
+//  DM.tbInserirProduto.Refresh;
+  //lblQuantidade.Caption := InttoStr(valorTeste);
+end;
+
+
+
+
+
+
+end.

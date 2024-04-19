@@ -2,13 +2,6 @@ object DM: TDM
   Height = 750
   Width = 1000
   PixelsPerInch = 120
-  object qLogin: TFDQuery
-    Connection = Conexao
-    SQL.Strings = (
-      'select * from banco')
-    Left = 72
-    Top = 224
-  end
   object dsCadastro: TDataSource
     DataSet = tbCadastro
     Left = 304
@@ -87,12 +80,8 @@ object DM: TDM
     Left = 72
     Top = 16
   end
-  object dsLogin: TDataSource
-    DataSet = qLogin
-    Left = 200
-    Top = 224
-  end
   object qCadastro: TFDQuery
+    Active = True
     MasterSource = dsCadastro
     Connection = Conexao
     SQL.Strings = (
@@ -106,17 +95,17 @@ object DM: TDM
     SQL.Strings = (
       'select * from dadosBancarios')
     Left = 72
-    Top = 336
+    Top = 192
   end
   object dsDadosBancarios: TDataSource
     DataSet = qDadosBancarios
     Left = 200
-    Top = 336
+    Top = 192
   end
   object dsExtrato: TDataSource
     DataSet = qExtrato
     Left = 200
-    Top = 448
+    Top = 304
   end
   object qExtrato: TFDQuery
     Active = True
@@ -124,25 +113,11 @@ object DM: TDM
     SQL.Strings = (
       'select * from extrato')
     Left = 72
-    Top = 448
+    Top = 304
     ParamData = <
       item
         Name = 'pData'
         ParamType = ptInput
       end>
-  end
-  object tbExtrato: TFDTable
-    Active = True
-    IndexFieldNames = 'id'
-    Connection = Conexao
-    ResourceOptions.AssignedValues = [rvEscapeExpand]
-    TableName = 'banco.extrato'
-    Left = 312
-    Top = 456
-  end
-  object dsExtratoTB: TDataSource
-    DataSet = tbExtrato
-    Left = 408
-    Top = 456
   end
 end

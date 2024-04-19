@@ -1,0 +1,18 @@
+program Project12;
+
+uses
+  Vcl.Forms,
+  telaTeste in 'telaTeste.pas' {formCadastro},
+  telaLogin in 'telaLogin.pas' {formLogin},
+  Unit5 in 'Unit5.pas' {DM: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TformCadastro, formCadastro);
+  Application.CreateForm(TformLogin, formLogin);
+  Application.CreateForm(TDM, DM);
+  Application.Run;
+end.

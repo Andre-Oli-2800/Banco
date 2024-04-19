@@ -1,0 +1,241 @@
+unit unitPagarCompra;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.ExtCtrls, Vcl.StdCtrls;
+
+type
+  TformPagarCompras = class(TForm)
+    Label1: TLabel;
+    Panel1: TPanel;
+    Label2: TLabel;
+    lblTotal: TLabel;
+    DBGrid1: TDBGrid;
+    Button1: TButton;
+    Label3: TLabel;
+    lblPessoa: TLabel;
+    Label5: TLabel;
+    lblSaldo: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formPagarCompras: TformPagarCompras;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, Login;
+
+procedure TformPagarCompras.Button1Click(Sender: TObject);
+var
+saldo,dinheiro: real;
+user,id,nomeCliente: String;
+senha: String;
+preco,total,tot,valorDevendo,valorPago: real;
+qtd: integer;
+idProduto: String;
+
+begin
+  //Selecionar saldo da pessoa
+  DM.sqlCadastro.SQL.Clear;
+  DM.sqlCadastro.SQL.Add('select saldo from pessoas where nome ='''+FormLogin.txtNome.Text+'''');
+  DM.sqlCadastro.Open;
+  lblSaldo.caption:= DM.sqlCadastro.FieldByName('saldo').asString;
+
+  //Selecionar id da pessoa
+  DM.sqlLogin.SQL.clear;
+  DM.sqlLogin.SQL.add('select id from pessoas where nome = '''+FormLogin.txtNome.Text+'''');
+  DM.sqlLogin.open;
+  id:=DM.sqlLogin.fieldbyname('id').asString;
+
+  //Calcula o total da dívida do cliente
+  DM.tbComprarProduto.First;
+  while not DM.tbComprarProduto.Eof do
+    begin
+      if DM.tbComprarProduto.FieldByName('idPessoa').AsString = id then
+        begin
+        idProduto := DM.tbComprarProduto.FieldByName('idProduto').AsString;
+        qtd := DM.tbComprarProduto.FieldByName('qtd').AsInteger;
+         if DM.tbProdutos.FieldByName('id').AsString = idProduto then
+         begin
+           preco:=  DM.tbProdutos.FieldByName('preco').AsInteger
+         end;
+         tot:=preco*qtd;
+         total:=total+tot;
+         DM.tbComprarProduto.Next;
+        end
+      else
+        begin
+        DM.tbComprarProduto.Next;
+        end;
+    end;
+  //FormLogin.txtSenha.Text;
+  try
+    dinheiro:=strtofloat(inputbox('Digite o valor que deseja pagar','Informe',''));
+  Except
+    showMessage('Informe um valor que seja válido');
+    exit;
+  end;
+
+  //Seleciona o saldo da pessoa no banco de dados
+  DM.sqlCadastro.SQL.Clear;
+  DM.sqlCadastro.SQL.Add('select saldo from pessoas where nome = '''+FormLogin.txtNome.Text+'''');
+  DM.sqlCadastro.Open;
+  saldo:=strtofloat(DM.sqlCadastro.fieldbyname('saldo').asString);
+
+  saldo:=saldo-dinheiro;
+
+
+    if saldo < 0 then
+    begin
+       Application.MessageBox('Operação interrompida! Saldo não pode ficar negativo.','Infoormação',MB_ICONEXCLAMATION);
+       exit;
+    end
+    else
+    begin
+
+
+    //if DM.sqlValorPagar.FieldByName('nome').AsString<>' ' then
+  //  begin
+      DM.sqlValorPagar.SQL.clear;
+      DM.sqlValorPagar.SQL.add('select valor from ValorPagar where nome = ''' +FormLogin.txtNome.Text+'''');
+      DM.sqlValorPagar.open;
+      ValorPago:= DM.sqlValorPagar.FieldByName('valor').AsFloat;
+
+      DM.sqlValorPagar.SQL.Clear;
+      DM.sqlValorPagar.SQL.add('select nome from valorPagar where nome = '''+FormLogin.txtNome.Text+'''');
+      dm.sqlValorPagar.Open;
+    if  (total - ValorPago = 0) then
+    begin
+      Application.MessageBox('Você não está devendo!','Aviso',MB_ICONEXCLAMATION);
+      exit;
+    end
+    else
+    begin
+      dinheiro:= dinheiro + ValorPago;
+
+      if DM.sqlValorPagar.RecordCount > 0 then
+
+      begin
+      //nomeCliente :=  DM.sqlValorPagar.FieldByName('nome').AsString;
+        DM.sqlValorPagar.SQL.clear;
+        DM.sqlValorPagar.SQL.add('update ValorPagar set valor = '''+floattostr(dinheiro)+ '''where nome = ''' +FormLogin.txtNome.Text+'''');
+        DM.sqlValorPagar.execSQL;
+      end
+      else
+      begin
+        DM.sqlValorPagar.SQL.clear;
+        DM.sqlValorPagar.SQL.add('insert into ValorPagar (nome,valor)');
+        DM.sqlValorPagar.SQL.add('values ('''+FormLogin.txtNome.Text+''','+floattostr(dinheiro)+')');
+        DM.sqlValorPagar.execSQL;
+      end;
+
+    //DM.sqlValorPagar.SQL.clear;
+    //DM.sqlValorPagar.SQL.Add('select valorDevendo from valorPagar where nome = '''+FormLogin.txtNome.Text+'''');
+    //DM.sqlValorPagar.Open;
+    //valorDevendo:= DM.sqlValorPagar.FieldByName('valorDevendo').AsFloat;
+
+    //if valorDevendo = 0 then
+    //if  (total - dinheiro = 0) then
+    //begin
+    //  Application.MessageBox('Você não está devendo!','Aviso',MB_ICONEXCLAMATION);
+    //  exit;
+    //end
+    //else
+    //begin
+    //  total:= valorDevendo - dinheiro;
+    //  DM.sqlValorPagar.SQL.clear;
+    //  DM.sqlValorPagar.SQL.add('update ValorPagar set valorDevendo ='''+floattostr(total)+ '''where nome = '''+FormLogin.txtNome.Text+'''');
+    //  DM.sqlValorPagar.execSQL;
+    //end;
+
+    //Atualizar saldo do cliente
+    DM.sqlCadastro.SQL.Clear;
+    DM.sqlCadastro.SQL.Add('update pessoas set saldo = '+floattostr(saldo)+' where nome = '''+FormLogin.txtNome.Text+'''' );
+    DM.sqlCadastro.ExecSQL;
+    Application.MessageBox('Pagamento efetuado com sucesso.','Infoormação',MB_ICONINFORMATION);
+
+    lblTotal.Caption:= FloatToStr(total-dinheiro);
+    end;
+    end;
+end;
+
+
+procedure TformPagarCompras.FormShow(Sender: TObject);
+
+var
+user,id: String;
+senha: String;
+preco,total,tot,valorDevendo,valorPago: real;
+qtd: integer;
+idProduto: String;
+begin
+
+  lblPessoa.Caption:=FormLogin.txtNome.Text;
+
+  DM.sqlCadastro.SQL.Clear;
+  DM.sqlCadastro.SQL.Add('select saldo from pessoas where nome ='''+FormLogin.txtNome.Text+'''');
+  DM.sqlCadastro.Open;
+  lblSaldo.caption:= DM.sqlCadastro.FieldByName('saldo').asString;
+
+
+  DM.sqlLogin.SQL.clear;
+  DM.sqlLogin.SQL.add('select id from pessoas where nome = '''+FormLogin.txtNome.Text+'''');
+  DM.sqlLogin.open;
+  id:=DM.sqlLogin.fieldbyname('id').asString;
+
+  DM.tbComprarProduto.First;
+  while not DM.tbComprarProduto.Eof do
+    begin
+      if DM.tbComprarProduto.FieldByName('idPessoa').AsString = id then
+        begin
+        idProduto := DM.tbComprarProduto.FieldByName('idProduto').AsString;
+        qtd := DM.tbComprarProduto.FieldByName('qtd').AsInteger;
+         if DM.tbProdutos.FieldByName('id').AsString = idProduto then
+         begin
+           preco:=  DM.tbProdutos.FieldByName('preco').AsInteger
+         end;
+         tot:=preco*qtd;
+         total:=total+tot;
+         DM.tbComprarProduto.Next;
+         lblTotal.Caption:= FloatToStr(total);
+        end
+      else
+        begin
+        DM.tbComprarProduto.Next;
+        end;
+    end;
+
+    //DM.sqlValorPagar.SQL.clear;
+    //DM.sqlValorPagar.SQL.Add('select valorDevendo from valorPagar where nome = '''+FormLogin.txtNome.Text+'''');
+    //DM.sqlValorPagar.Open;
+    //valorDevendo:= DM.sqlValorPagar.FieldByName('valorDevendo').AsFloat;
+
+
+    DM.sqlValorPagar.SQL.clear;
+    DM.sqlValorPagar.SQL.Add('select valor from valorPagar where nome = '''+FormLogin.txtNome.Text+'''');
+    DM.sqlValorPagar.Open;
+    valorPago:= DM.sqlValorPagar.FieldByName('valor').AsFloat;
+    total:=total-valorPago;
+    lblTotal.Caption:= FloatToStr(total);
+    {if (valorDevendo = 0) and (total <> 0) then
+    begin
+       lblTotal.Caption:= FloatToStr(total);
+    end
+    else
+    begin
+       lblTotal.Caption := floattostr(valorDevendo);
+    end;}
+end;
+
+end.

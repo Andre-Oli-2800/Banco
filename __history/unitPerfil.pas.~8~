@@ -1,0 +1,42 @@
+unit unitPerfil;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.jpeg,
+  Vcl.ExtCtrls;
+
+type
+  TformPerfil = class(TForm)
+    txtNome: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    txtAltura: TLabel;
+    txtUser: TLabel;
+    txtEmail: TLabel;
+    txtCelular: TLabel;
+    txtNascimento: TLabel;
+    Image1: TImage;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formPerfil: TformPerfil;
+
+implementation
+
+{$R *.dfm}
+
+
+
+end.

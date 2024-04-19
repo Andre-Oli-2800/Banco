@@ -12,7 +12,6 @@ uses
 
 type
   TDM = class(TDataModule)
-    qLogin: TFDQuery;
     dsCadastro: TDataSource;
     Conexao: TFDConnection;
     tbCadastro: TFDTable;
@@ -26,14 +25,11 @@ type
     tbCadastrotelefone: TStringField;
     tbCadastrocelular: TStringField;
     tbCadastrosenha: TStringField;
-    dsLogin: TDataSource;
     qCadastro: TFDQuery;
     qDadosBancarios: TFDQuery;
     dsDadosBancarios: TDataSource;
     dsExtrato: TDataSource;
     qExtrato: TFDQuery;
-    tbExtrato: TFDTable;
-    dsExtratoTB: TDataSource;
   private
     { Private declarations }
   public

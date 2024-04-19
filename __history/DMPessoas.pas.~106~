@@ -1,0 +1,127 @@
+unit DMPessoas;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  FireDAC.Comp.DataSet , VCL.Dialogs;
+
+
+type
+  TDM = class(TDataModule)
+    conexao: TFDConnection;
+    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    dsPessoas: TDataSource;
+    tbPessoas: TFDTable;
+    tbPessoasid: TFDAutoIncField;
+    tbPessoasnome: TStringField;
+    tbPessoasusuario: TStringField;
+    tbPessoasdataNascimento: TDateField;
+    tbPessoasaltura: TSingleField;
+    tbPessoastelefone: TStringField;
+    tbPessoasemail: TStringField;
+    tbPessoassenha: TStringField;
+    sqlLogin: TFDQuery;
+    dsLogin: TDataSource;
+    dsAtivador: TDataSource;
+    tbAtivador: TFDTable;
+    tbProdutos: TFDTable;
+    dsProdutos: TDataSource;
+    tbComprarProduto: TFDTable;
+    dsComprarProduto: TDataSource;
+    tbProdutosid: TIntegerField;
+    tbProdutosnome: TStringField;
+    tbProdutosmarca: TStringField;
+    tbProdutospeso: TSingleField;
+    tbProdutosfabricacao: TDateField;
+    tbProdutosvalidade: TDateField;
+    tbProdutosobs: TMemoField;
+    sqlConsulta: TFDQuery;
+    dsConsulta: TDataSource;
+    tbInserirProduto: TFDTable;
+    dsInserirProduto: TDataSource;
+    sqlInserirProduto: TFDQuery;
+    dsInserirProduto2: TDataSource;
+    sqlCadastro: TFDQuery;
+    dsCadastro: TDataSource;
+    sqlInserirProdutoid: TFDAutoIncField;
+    sqlInserirProdutoidProduto: TIntegerField;
+    sqlInserirProdutoqtd: TIntegerField;
+    sqlInserirProdutonomeProduto: TStringField;
+    tbInserirProdutoid: TFDAutoIncField;
+    tbInserirProdutoidProduto: TIntegerField;
+    tbInserirProdutoqtd: TIntegerField;
+    tbComprarProdutoid: TFDAutoIncField;
+    tbComprarProdutoidPessoa: TIntegerField;
+    tbComprarProdutoidProduto: TIntegerField;
+    tbComprarProdutoqtd: TIntegerField;
+    tbComprarProdutonomeProduto: TStringField;
+    sqlProdutos: TFDQuery;
+    dsProdutosSQL: TDataSource;
+    tbInserirProdutonomeProduto: TStringField;
+    tbComprarProdutonomePessoa: TStringField;
+    tbProdutospreco: TSingleField;
+    tbProdutostipoPeso: TStringField;
+    tbTipoPeso: TFDTable;
+    dsTipoPeso: TDataSource;
+    sqlValorPagar: TFDQuery;
+    dsValorPagar: TDataSource;
+    sqlComprarProduto: TFDQuery;
+    dsComprarProduto2: TDataSource;
+    tbPessoassaldo: TSingleField;
+    sqlTesteRadioGroup: TFDQuery;
+    dsTesteRadioGroup: TDataSource;
+    TesteRadiboGroup: TFDTable;
+    dsTesteRadioGrouptb: TDataSource;
+    tbFornecedores: TFDTable;
+    dsFornecedores: TDataSource;
+    tbCondFornecedores: TFDTable;
+    dsCondFornecedores: TDataSource;
+    procedure TesteRadiboGroupAfterPost(DataSet: TDataSet);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM: TDM;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses CadastroLogin, unipCadProdutos;
+
+{$R *.dfm}
+
+procedure TDM.TesteRadiboGroupAfterPost(DataSet: TDataSet);
+var
+valorId: String;
+begin
+case formCadastro.rgOpcoes.itemindex of
+0:
+begin
+    sqlTesteRadioGroup.SQL.Clear;
+    sqlTesteRadioGroup.SQL.add('update testeradiogroup set opcao = ''S'', opcao2 = ''S'',opcao3=''N'' ');
+    sqlTesteRadioGroup.SQL.add('where id = '''+formCadastro.txtID.text+ ''' ');
+    sqlTesteRadioGroup.Prepare;
+    sqlTesteRadioGroup.ExecSQL;
+end;
+1:
+begin
+    sqlTesteRadioGroup.SQL.Clear;
+    sqlTesteRadioGroup.SQL.add('update testeradiogroup set opcao = ''N'', opcao2 = ''N'',opcao3=''S'' ');
+    sqlTesteRadioGroup.SQL.add('where id = '''+formCadastro.txtID.text+ ''' ');
+    sqlTesteRadioGroup.Prepare;
+    sqlTesteRadioGroup.ExecSQL;
+end;
+end;
+end;
+
+end .

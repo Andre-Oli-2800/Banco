@@ -61,7 +61,7 @@ begin
       lblMsg.Font.Color := clRed;
       lblMsg.Caption := 'Email/Senha inválido(s)'
     end
-  end
+  end;
 end;
 
 end.

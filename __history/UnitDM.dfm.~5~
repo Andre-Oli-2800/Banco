@@ -1,0 +1,27 @@
+object DM: TDM
+  Height = 600
+  Width = 800
+  PixelsPerInch = 120
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=teste'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Left = 40
+    Top = 32
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection1
+    Left = 136
+    Top = 32
+  end
+  object DataSource1: TDataSource
+    Left = 216
+    Top = 32
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\wamp\bin\mysql\mysql5.7.40\lib\libmysql.dll'
+    Left = 408
+    Top = 160
+  end
+end

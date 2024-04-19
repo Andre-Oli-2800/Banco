@@ -1,0 +1,77 @@
+unit formNovaSenha;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TForm5 = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    txtSenhaAntiga: TEdit;
+    txtNovaSenha: TEdit;
+    txtRepitaSenha: TEdit;
+    txtNome: TEdit;
+    Label5: TLabel;
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure TForm5.Button1Click(Sender: TObject);
+begin
+DM.sqlCadastro.SQL.clear;
+DM.sqlCadastro.SQL.Add('select * from pessoas where nome = ' +quotedstr(txtNome.Text));
+DM.sqlCadastro.prepare;
+DM.sqlCadastro.open;
+
+if DM.sqlCadastro.RecordCount > 0 then
+begin
+
+  if DM.sqlCadastro.FieldByName('senha').AsString=txtSenhaAntiga.Text then
+  begin
+     if txtNovaSenha.Text = txtRepitaSenha.Text then
+     begin
+        DM.sqlCadastro.SQL.clear;
+        DM.sqlCadastro.SQL.Add('update pessoas set senha = ' +quotedstr(txtNovaSenha.Text));
+        DM.sqlCadastro.prepare;
+        DM.sqlCadastro.ExecSQL;
+        Application.MessageBox('Senha alterada com sucesso','Nova Senha',MB_ICONEXCLAMATION);
+     end
+     else
+     begin
+        Application.MessageBox('As novas senha digitadas são diferentes','Aviso',MB_ICONWARNING);
+     end;
+
+  end
+  else
+  begin
+     Application.MessageBox('A senha antiga está incorreta','Aviso',MB_ICONWARNING);
+  end;
+
+
+end
+else
+begin
+  Application.MessageBox('Não existe alguém com esse nome no sistema','Aviso',MB_ICONWARNING);
+end;
+
+end;
+
+end.

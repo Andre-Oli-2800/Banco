@@ -1,0 +1,16 @@
+program Project9;
+
+uses
+  Vcl.Forms,
+  CadastroLogin in 'CadastroLogin.pas' {Form5},
+  DMPessoas in 'DMPessoas.pas' {DM: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm5, Form5);
+  Application.CreateForm(TDM, DM);
+  Application.Run;
+end.

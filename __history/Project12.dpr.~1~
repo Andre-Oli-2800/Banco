@@ -1,0 +1,16 @@
+program Project12;
+
+uses
+  Vcl.Forms,
+  telaTeste in 'telaTeste.pas' {Form5},
+  telaLogin in 'telaLogin.pas' {telaCadastro};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm5, Form5);
+  Application.CreateForm(TtelaCadastro, telaCadastro);
+  Application.Run;
+end.

@@ -1,0 +1,315 @@
+object formCadProdutos: TformCadProdutos
+  Left = 0
+  Top = 0
+  Caption = 'formCadProdutos'
+  ClientHeight = 559
+  ClientWidth = 1301
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  TextHeight = 15
+  object Label1: TLabel
+    Left = 327
+    Top = 32
+    Width = 249
+    Height = 37
+    Caption = 'Cadastrar Produtos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object lblNome: TLabel
+    Left = 8
+    Top = 115
+    Width = 54
+    Height = 28
+    Caption = 'Nome'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Top = 232
+    Width = 40
+    Height = 28
+    Caption = 'Peso'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object lblMarca: TLabel
+    Left = 8
+    Top = 176
+    Width = 54
+    Height = 28
+    Caption = 'Marca'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 375
+    Top = 176
+    Width = 148
+    Height = 28
+    Caption = 'Data de Validade'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 375
+    Top = 115
+    Width = 166
+    Height = 28
+    Caption = 'Data de Fabrica'#231#227'o'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 8
+    Top = 300
+    Width = 35
+    Height = 28
+    Caption = 'Obs'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 375
+    Top = 232
+    Width = 49
+    Height = 28
+    Caption = 'Pre'#231'o'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 88
+    Top = 484
+    Width = 511
+    Height = 49
+    DataSource = DM.dsProdutos
+    VisibleButtons = [nbFirst, nbLast, nbInsert, nbDelete, nbEdit, nbPost, nbCancel]
+    TabOrder = 0
+  end
+  object DBGrid1: TDBGrid
+    Left = 747
+    Top = 103
+    Width = 524
+    Height = 430
+    DataSource = DM.dsProdutos
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -12
+    TitleFont.Name = 'Segoe UI'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'nome'
+        Width = 95
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'marca'
+        Width = 85
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'peso'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'tipoPeso'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'preco'
+        Width = 53
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'validade'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'fabricacao'
+        Visible = True
+      end>
+  end
+  object txtNome: TDBEdit
+    Left = 68
+    Top = 112
+    Width = 293
+    Height = 36
+    DataField = 'nome'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 1301
+    Height = 97
+    Align = alTop
+    TabOrder = 3
+    ExplicitWidth = 1295
+  end
+  object txtPeso: TDBEdit
+    Left = 54
+    Top = 229
+    Width = 203
+    Height = 36
+    DataField = 'peso'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+  end
+  object txtMarca: TDBEdit
+    Left = 68
+    Top = 173
+    Width = 293
+    Height = 36
+    DataField = 'marca'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+  end
+  object txtDataVali: TDBEdit
+    Left = 529
+    Top = 173
+    Width = 197
+    Height = 36
+    DataField = 'validade'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    MaxLength = 10
+    ParentFont = False
+    TabOrder = 6
+  end
+  object txtDataFab: TDBEdit
+    Left = 547
+    Top = 112
+    Width = 179
+    Height = 36
+    DataField = 'fabricacao'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    MaxLength = 10
+    ParentFont = False
+    TabOrder = 7
+  end
+  object DBMemo1: TDBMemo
+    Left = 8
+    Top = 334
+    Width = 714
+    Height = 139
+    DataField = 'obs'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
+  end
+  object txtPreco: TDBEdit
+    Left = 430
+    Top = 229
+    Width = 111
+    Height = 36
+    DataField = 'preco'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 9
+  end
+  object DBComboBox1: TDBComboBox
+    Left = 272
+    Top = 229
+    Width = 89
+    Height = 36
+    DataField = 'tipoPeso'
+    DataSource = DM.dsProdutos
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    Items.Strings = (
+      'Kg'
+      'g'
+      'L'
+      'ml')
+    ParentFont = False
+    TabOrder = 10
+  end
+end

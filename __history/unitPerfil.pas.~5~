@@ -1,0 +1,35 @@
+unit unitPerfil;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+
+type
+  TformPerfil = class(TForm)
+    txtNome: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label7: TLabel;
+    txtAltura: TLabel;
+    txtUser: TLabel;
+    txtEmail: TLabel;
+    txtCalular: TLabel;
+    txtNascimento: TLabel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formPerfil: TformPerfil;
+
+implementation
+
+{$R *.dfm}
+
+end.

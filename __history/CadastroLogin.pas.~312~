@@ -1,0 +1,186 @@
+unit CadastroLogin;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ExtCtrls,
+  Vcl.DBCtrls, Vcl.Menus, Vcl.ComCtrls, Vcl.NumberBox, IdBaseComponent,
+  IdNetworkCalculator;
+
+type
+  TFormCadastro = class(TForm)
+    Label2: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    btnLogin: TButton;
+    Label8: TLabel;
+    Label1: TLabel;
+    Label3: TLabel;
+    txtConfirSenha: TEdit;
+    btnCadastrar: TButton;
+    txtNome: TEdit;
+    txtUser: TEdit;
+    txtEmail: TEdit;
+    txtSenha: TEdit;
+    txtTel: TMaskEdit;
+    dtpDataNascimento: TDateTimePicker;
+    txtAltura: TMaskEdit;
+    Label9: TLabel;
+    txtSaldo: TEdit;
+    MainMenu1: TMainMenu;
+    Opes1: TMenuItem;
+    Sair1: TMenuItem;
+    estes1: TMenuItem;
+    este1: TMenuItem;
+    lblMsg: TLabel;
+    dgCartao: TRadioGroup;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    Label17: TLabel;
+    procedure btnCadastrarClick(Sender: TObject);
+    procedure btnLoginClick(Sender: TObject);
+    procedure Sair1Click(Sender: TObject);
+    procedure este1Click(Sender: TObject);
+
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure dgCartaoClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+
+  private
+    { Private declarations }
+  public
+    teste: String;
+  end;
+
+var
+  FormCadastro: TFormCadastro;
+  testeGlobal: String;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, Login, unitListaPessoas, unipCadProdutos, unitComprarProduto,
+  unitEstoqueProdutos, unitTesteWhileLabel;
+
+procedure limpaCampos;
+begin
+  FormCadastro.txtNome.text := '';
+  FormCadastro.txtUser.text := '';
+  FormCadastro.txtAltura.text := '';
+  FormCadastro.txtTel.text := '';
+  FormCadastro.txtConfirSenha.text := '';
+  FormCadastro.txtSenha.text := '';
+  FormCadastro.dtpDataNascimento.Date := now;
+  FormCadastro.txtEmail.Text :='';
+  FormCadastro.txtSaldo.Text := '';
+end;
+
+procedure TFormCadastro.btnCadastrarClick(Sender: TObject);
+var
+valorTeste,data,valorSQL: String;
+begin
+  if (txtNome.Text = '') or (txtUser.Text = '') or (txtAltura.Text = '') or (txtSenha.Text = '') or  (txtTel.Text = '') or (txtEmail.Text = '') then
+  begin
+    lblMsg.Caption:= 'Preencha os campos obrigatórios';
+    lblMsg.Font.Color := clRed;
+    //Application.MessageBox('Preencha todos os campos','Alerta',MB_ICONEXCLAMATION);
+  end
+  else
+  if txtSenha.Text <> txtConfirSenha.Text then
+  begin
+    lblMsg.Caption:= 'As senhas inseridas são diferentes';
+    lblMsg.Font.Color := clRed;
+    //Application.MessageBox('As senhas inseridas são diferentes','Alerta',MB_ICONEXCLAMATION)
+  end
+  else
+  if (DM.sqlCadastro.FieldByName('nome').asString = txtNome.Text) then
+  begin
+    lblMsg.Caption:= 'Já existe uma pessoa com esse nome';
+    lblMsg.Font.Color := clRed;
+    //Application.MessageBox('Já existe uma pessoa com esse nome','Alerta',MB_ICONEXCLAMATION)
+  end
+  else
+  begin
+    DM.sqlCadastro.SQL.clear;
+    DM.sqlCadastro.SQL.add('insert into pessoas (nome,usuario,dataNascimento,altura,telefone,email,senha,saldo)');
+    DM.sqlCadastro.SQL.add('values ('+QuotedStr(txtNome.Text)+','+QuotedStr(txtUser.Text)+',:pDataNasc, :pAltura,'+ QuotedStr(txtTel.Text) +','+QuotedStr(txtEmail.Text)+','+QuotedStr(txtSenha.Text)+',:pSaldo'+')');
+    DM.sqlCadastro.ParamByName('pDataNasc').Value  := FormatDateTime('YYYY-MM-DD',dtpDataNascimento.Date);
+    DM.sqlCadastro.ParamByName('pAltura').Value := strtofloat(txtAltura.Text);
+    DM.sqlCadastro.ParamByName('pSaldo').Value := strtofloat(txtSaldo.Text);
+    DM.sqlCadastro.ExecSQL;
+    lblMsg.Caption:= 'Usuário cadastrado com sucesso';
+    lblMsg.Font.Color := clGreen;
+    //Application.MessageBox('Usuário cadastrado com sucesso','Mensagem',MB_ICONINFORMATION);
+    limpaCampos;
+  end;
+end;
+
+
+procedure TFormCadastro.btnLoginClick(Sender: TObject);
+var
+testeForm: String;
+begin
+  FormLogin.showModal;
+  FormCadastro.close;
+end;
+
+procedure TFormCadastro.este1Click(Sender: TObject);
+var
+testeForm: String;
+begin
+//formTesteWhileLabel.showModal;
+  with formTesteWhileLabel do
+  //.create(self) do
+  begin
+  testeForm := inttostr(5);
+  unitTesteWhileLabel.teste := inttostr(5);
+  showModal;
+
+  end;
+end;
+
+procedure TFormCadastro.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+
+if key=(VK_Escape) then
+close;
+
+end;
+
+
+procedure TFormCadastro.FormShow(Sender: TObject);
+begin
+txtSaldo.Enabled := false;
+txtSaldo.Color := clGray;
+end;
+
+procedure TFormCadastro.dgCartaoClick(Sender: TObject);
+begin
+if dgCartao.ItemIndex = 0 then
+begin
+txtSaldo.Enabled := true;
+txtSaldo.text := clWindow;
+end
+else
+begin
+txtSaldo.Enabled := false;
+txtSaldo.Color := clGray;
+end;
+end;
+
+procedure TFormCadastro.Sair1Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.

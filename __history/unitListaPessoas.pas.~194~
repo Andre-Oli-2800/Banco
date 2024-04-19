@@ -1,0 +1,165 @@
+unit unitListaPessoas;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB,
+  Vcl.Grids, Vcl.DBGrids, Vcl.DBCtrls, Vcl.Mask, Vcl.ComCtrls, Vcl.Menus,
+  Vcl.WinXPickers;
+
+type
+  TformListaPessoas = class(TForm)
+    Panel1: TPanel;
+    Image1: TImage;
+    Label1: TLabel;
+    gridPessoas: TDBGrid;
+    Label2: TLabel;
+    txtBusca: TEdit;
+    dtDataInicio: TDateTimePicker;
+    dtDataFinal: TDateTimePicker;
+    Label4: TLabel;
+    Label5: TLabel;
+    Button1: TButton;
+    MainMenu1: TMainMenu;
+    Sair1: TMenuItem;
+    Sair2: TMenuItem;
+    Produtos1: TMenuItem;
+    CadastrarProdutos1: TMenuItem;
+    ComprarProdutos1: TMenuItem;
+    EstoqueProdutos1: TMenuItem;
+    Pagamento1: TMenuItem;
+    N1pagar1compras1: TMenuItem;
+    RetornarSaldo1: TMenuItem;
+    Configuraes1: TMenuItem;
+    Sistema1: TMenuItem;
+    PopupMenu1: TPopupMenu;
+    VerPerfil1: TMenuItem;
+    Fornecedor1: TMenuItem;
+    CadastrarFornecedor1: TMenuItem;
+    Cliente1: TMenuItem;
+    EditarDeletar1: TMenuItem;
+    NovaSenha1: TMenuItem;
+    procedure txtBuscaChange(Sender: TObject);
+
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Button1Click(Sender: TObject);
+    procedure CadastrarProdutos1Click(Sender: TObject);
+    procedure EstoqueProdutos1Click(Sender: TObject);
+    procedure ComprarProdutos1Click(Sender: TObject);
+    procedure Sair2Click(Sender: TObject);
+    procedure N1pagar1compras1Click(Sender: TObject);
+    procedure RetornarSaldo1Click(Sender: TObject);
+    procedure Sistema1Click(Sender: TObject);
+    procedure VerPerfil1Click(Sender: TObject);
+    procedure gridPessoasCellClick(Column: TColumn);
+    procedure CadastrarFornecedor1Click(Sender: TObject);
+    procedure EditarDeletar1Click(Sender: TObject);
+    procedure NovaSenha1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formListaPessoas: TformListaPessoas;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, unipCadProdutos, unitComprarProduto, unitEstoqueProdutos,
+  unitPagarCompra, unitRetornarSaldo, unitConfigSistema, unitPerfil,
+  unitFornecedor, unitEditarApagarUsuario, formNovaSenha;
+
+procedure TformListaPessoas.Button1Click(Sender: TObject);
+var
+dataInicio, dataFinal: String;
+begin
+  DM.tbPessoas.Filtered:=false;
+  DM.tbPessoas.Filter:='dataNascimento >=' +quotedstr(DateToStr(dtDataInicio.Date))+ 'and daTaNascimento <= '+quotedstr(DateToStr(dtDataFinal.Date));
+  DM.tbPessoas.Filtered:=true;
+end;
+
+procedure TformListaPessoas.CadastrarFornecedor1Click(Sender: TObject);
+begin
+  formFornecedores.showModal;
+end;
+
+procedure TformListaPessoas.CadastrarProdutos1Click(Sender: TObject);
+begin
+  formCadProdutos.showModal;
+end;
+
+procedure TformListaPessoas.ComprarProdutos1Click(Sender: TObject);
+begin
+  formComprarProdutos.showModal;
+end;
+
+procedure TformListaPessoas.EditarDeletar1Click(Sender: TObject);
+begin
+formEditarApagarUsuario.showModal;
+end;
+
+procedure TformListaPessoas.EstoqueProdutos1Click(Sender: TObject);
+begin
+  formEstoqueProdutos.showModal;
+end;
+
+procedure TformListaPessoas.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+
+txtBusca.Text:= '';
+end;
+
+procedure TformListaPessoas.gridPessoasCellClick(Column: TColumn);
+begin
+  formPerfil.txtNome.caption := gridPessoas.columns[1].field.value;
+  formPerfil.txtUser.caption := gridPessoas.columns[2].field.value;
+  formPerfil.txtAltura.caption := gridPessoas.columns[4].field.value;
+  formPerfil.txtCelular.caption := gridPessoas.columns[5].field.value;
+  formPerfil.txtEmail.caption := gridPessoas.columns[6].field.value;
+  formPerfil.txtNascimento.caption := gridPessoas.columns[3].field.value;
+end;
+
+procedure TformListaPessoas.N1pagar1compras1Click(Sender: TObject);
+begin
+  formPagarCompras.showModal;
+end;
+
+procedure TformListaPessoas.NovaSenha1Click(Sender: TObject);
+begin
+formNovaSenha.showModal;
+end;
+
+procedure TformListaPessoas.RetornarSaldo1Click(Sender: TObject);
+begin
+  formRetornarSaldo.showModal;
+end;
+
+procedure TformListaPessoas.Sair2Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TformListaPessoas.Sistema1Click(Sender: TObject);
+begin
+  formConfigSistema.showModal;
+end;
+
+procedure TformListaPessoas.txtBuscaChange(Sender: TObject);
+begin
+  DM.tbPessoas.filtered := false;
+  DM.tbPessoas.filter := 'nome like ' +quotedstr('%'+txtBusca.Text+'%');
+  DM.tbPessoas.Filtered := true;
+  //DM.tbPessoas.Locate('nome',txtBusca.Text,[loPartialKey]);
+end;
+
+procedure TformListaPessoas.VerPerfil1Click(Sender: TObject);
+begin
+  formPerfil.showModal;
+end;
+
+end.

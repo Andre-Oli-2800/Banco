@@ -1,0 +1,58 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
+
+type
+  TForm5 = class(TForm)
+    MainMenu1: TMainMenu;
+    Sistema1: TMenuItem;
+    S1: TMenuItem;
+    C1: TMenuItem;
+    Movimentaes1: TMenuItem;
+    GerenciarMovimentaes1: TMenuItem;
+    GerenciarMovimentaes2: TMenuItem;
+    CadastrodeProdutos1: TMenuItem;
+    procedure S1Click(Sender: TObject);
+    procedure CadastrodeProdutos1Click(Sender: TObject);
+    procedure GerenciarMovimentaes1Click(Sender: TObject);
+    procedure GerenciarMovimentaes2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form5: TForm5;
+
+implementation
+
+{$R *.dfm}
+
+uses unitCadProduto, unitCadMovimentacao;
+
+procedure TForm5.CadastrodeProdutos1Click(Sender: TObject);
+begin
+     formCadProdutos.showModal;
+end;
+
+procedure TForm5.GerenciarMovimentaes1Click(Sender: TObject);
+begin
+formCadMovimentacao.showModal;
+end;
+
+procedure TForm5.GerenciarMovimentaes2Click(Sender: TObject);
+begin
+  formConsMovimentacao.showModal;
+end;
+
+procedure TForm5.S1Click(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.

@@ -4,23 +4,20 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.NumberBox, Vcl.Mask;
 
 type
   TformTransferir = class(TForm)
     Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
     Label4: TLabel;
     lblSaldo: TLabel;
     Label6: TLabel;
     Label7: TLabel;
-    Label8: TLabel;
     lblMsg: TLabel;
-    txtValor: TEdit;
-    txtAgencia: TEdit;
-    txtConta: TEdit;
     btnTransferir: TButton;
+    txtValor: TNumberBox;
+    Label5: TLabel;
+    txtCelular: TMaskEdit;
     procedure btnTransferirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -40,14 +37,14 @@ uses Unit5;
 
 procedure TformTransferir.btnTransferirClick(Sender: TObject);
 var
-saldo,saldoOutraConta: integer;
+saldo,saldoOutraConta: real;
 cpf: String;
 begin
   DM.qDAdosBancarios.Close;
   DM.qDadosBancarios.SQL.CLear;
   DM.qDadosBancarios.SQL.Add('Select saldo,cpf from dadosBancarios where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
   DM.qDadosBancarios.Open;
-  if (txtConta.Text = '') or (txtAgencia.Text = '') or (txtValor.Text = '') then
+  if StrtoFloat(txtValor.Text) = 0 then
   begin
     lblMsg.Font.Color := clRed;
     lblMsg.Caption := 'Preencha todos os campos';
@@ -55,7 +52,7 @@ begin
   else
   begin
     cpf := DM.qDadosBancarios.FieldByName('cpf').AsString;
-    if DM.qDadosBancarios.fieldbyName('saldo').AsInteger < StrToInt(txtValor.Text) then
+    if DM.qDadosBancarios.fieldbyName('saldo').AsFloat < StrToFloat(txtValor.Text) then
     begin
       lblMsg.Font.Color := clRed;
       lblMsg.Caption := 'Erro! Saldo menor do que o valor a ser transferido';
@@ -63,24 +60,24 @@ begin
     else
     begin
 
-      saldo := DM.qDadosBancarios.fieldbyName('saldo').asInteger;
-      saldo := saldo - StrToInt(txtValor.Text);
+      saldo := DM.qDadosBancarios.fieldbyName('saldo').asFloat;
+      saldo := saldo - StrToFloat(txtValor.Text);
 
       DM.qDadosBancarios.Close;
       DM.qDadosBancarios.SQL.Clear;
-      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+IntToStr(saldo)+' where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldo)+' where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
       DM.qDadosBancarios.ExecSQL;
 
 
       DM.qDadosBancarios.SQL.Clear;
-      DM.qDadosBancarios.SQL.Add('Select saldo from dadosBancarios where conta = '+quotedStr(txtConta.text)+' and agencia = '+quotedStr(txtAgencia.text));
+      DM.qDadosBancarios.SQL.Add('Select saldo from dadosBancarios where celular = '+quotedStr(txtCelular.Text));
       DM.qDadosBancarios.Open;
 
-      saldoOutraConta := DM.qDadosBancarios.fieldbyName('saldo').asInteger;
-      saldoOutraConta := saldoOutraConta + StrToInt(txtValor.Text);
+      saldoOutraConta := DM.qDadosBancarios.fieldbyName('saldo').asFloat;
+      saldoOutraConta := saldoOutraConta + StrToFloat(txtValor.Text);
 
       DM.qDadosBancarios.SQL.Clear;
-      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+IntToStr(saldoOutraConta)+' where agencia = '+txtAgencia.Text+' and conta = '+ txtConta.Text);
+      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldoOutraConta)+' where celular = '+quotedStr(txtCelular.Text));
       DM.qDadosBancarios.ExecSQL;
 
       lblMsg.Font.Color := clGreen;
@@ -101,11 +98,11 @@ end;
 
 procedure TformTransferir.FormShow(Sender: TObject);
 begin
-DM.qDadosBancarios.Close;
-DM.qDadosBancarios.SQL.Clear;
-DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
-DM.qDadosBancarios.Open;
-lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+  DM.qDadosBancarios.Close;
+  DM.qDadosBancarios.SQL.Clear;
+  DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+  DM.qDadosBancarios.Open;
+  lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
 end;
 
 end.

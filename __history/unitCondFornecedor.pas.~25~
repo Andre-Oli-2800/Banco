@@ -1,0 +1,61 @@
+unit unitCondFornecedor;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.Grids, Vcl.DBGrids;
+
+type
+  TformConFornecedor = class(TForm)
+    DBGrid1: TDBGrid;
+    lcbProduto: TDBLookupComboBox;
+    Label1: TLabel;
+    btnAddProd: TButton;
+    Label2: TLabel;
+    lcbFornecedor: TDBLookupComboBox;
+    Button2: TButton;
+    procedure btnAddProdClick(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formConFornecedor: TformConFornecedor;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure TformConFornecedor.btnAddProdClick(Sender: TObject);
+begin
+  if btnAddProd.Enabled = false then
+  begin
+    Application.MessageBox('Aviso','Clique em "NOVO"´para adicionar um novo ao fornecedor',MB_ICONWARNING);
+  end
+  else
+  begin
+    DM.sqlLogin.sqL.clear;
+    DM.sqlLogin.sql.add('insert into prodfornec (idFornec,idProduto)');
+    DM.sqlLogin.sql.add('values ('+quotedstr(lcbFornecedor.KeyValue)+','+ quotedstr(lcbProduto.KeyValue)+')');
+    DM.sqlLogin.Prepare;
+    DM.sqlLogin.ExecSQL;
+    //btnAddProd.Enabled := false;
+  end;
+end;
+
+procedure TformConFornecedor.Button2Click(Sender: TObject);
+begin
+DM.tbCondFornecedores.Insert;
+lcbFornecedor.Enabled :=true;
+lcbProduto.Enabled:= true;
+btnAddProd.Enabled := true;
+end;
+
+end.

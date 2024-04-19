@@ -1,0 +1,49 @@
+object DM: TDM
+  Left = 0
+  Top = 0
+  Caption = 'DM'
+  ClientHeight = 231
+  ClientWidth = 505
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object FDQuery1: TFDQuery
+    Connection = Conexao
+    Left = 168
+    Top = 32
+  end
+  object Conexao: TFDConnection
+    Params.Strings = (
+      'Database=testeInsert'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 328
+    Top = 112
+  end
+  object Table1: TFDTable
+    Active = True
+    BeforePost = Table1BeforePost
+    IndexFieldNames = 'id'
+    Connection = Conexao
+    TableName = 'testeInsert.teste'
+    Left = 160
+    Top = 112
+  end
+  object dsTable1: TDataSource
+    DataSet = Table1
+    Left = 240
+    Top = 128
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\wamp\bin\mysql\mysql5.7.40\lib\libmysql.dll'
+    Left = 264
+    Top = 32
+  end
+end

@@ -1,0 +1,50 @@
+program Pessoas;
+
+uses
+  Vcl.Forms,
+  CadastroLogin in 'CadastroLogin.pas' {FormCadastro},
+  DMPessoas in 'DMPessoas.pas' {DM: TDataModule},
+  Login in 'Login.pas' {FormLogin},
+  unitListaPessoas in 'unitListaPessoas.pas' {formListaPessoas},
+  unipCadProdutos in 'unipCadProdutos.pas' {formCadProdutos},
+  unitComprarProduto in 'unitComprarProduto.pas' {formComprarProdutos},
+  unitEstoqueProdutos in 'unitEstoqueProdutos.pas' {formEstoqueProdutos},
+  unitPagarCompra in 'unitPagarCompra.pas' {formPagarCompras},
+  unitRetornarSaldo in 'unitRetornarSaldo.pas' {formRetornarSaldo},
+  unitProcurarPessoa in 'unitProcurarPessoa.pas' {formProcurarPessoa},
+  unitConfigSistema in 'unitConfigSistema.pas' {formConfigSistema},
+  unitPerfil in 'unitPerfil.pas' {formPerfil},
+  unitFornecedor in 'unitFornecedor.pas' {formFornecedores},
+  unitCondFornecedor in 'unitCondFornecedor.pas' {formConFornecedor},
+  unitTeste in 'unitTeste.pas' {formTeste},
+  unitTesteWhileLabel in 'unitTesteWhileLabel.pas' {formTesteWhileLabel},
+  unitEditarApagarUsuario in 'unitEditarApagarUsuario.pas' {formEditarApagarUsuario},
+  formNovaSenha in 'formNovaSenha.pas' {formAlterarSenha},
+  unitDevolucaoProd in 'unitDevolucaoProd.pas' {Form5};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TFormCadastro, FormCadastro);
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TFormLogin, FormLogin);
+  Application.CreateForm(TformListaPessoas, formListaPessoas);
+  Application.CreateForm(TformCadProdutos, formCadProdutos);
+  Application.CreateForm(TformComprarProdutos, formComprarProdutos);
+  Application.CreateForm(TformEstoqueProdutos, formEstoqueProdutos);
+  Application.CreateForm(TformPagarCompras, formPagarCompras);
+  Application.CreateForm(TformRetornarSaldo, formRetornarSaldo);
+  Application.CreateForm(TformProcurarPessoa, formProcurarPessoa);
+  Application.CreateForm(TformConfigSistema, formConfigSistema);
+  Application.CreateForm(TformPerfil, formPerfil);
+  Application.CreateForm(TformFornecedores, formFornecedores);
+  Application.CreateForm(TformConFornecedor, formConFornecedor);
+  Application.CreateForm(TformTeste, formTeste);
+  Application.CreateForm(TformTesteWhileLabel, formTesteWhileLabel);
+  Application.CreateForm(TformEditarApagarUsuario, formEditarApagarUsuario);
+  Application.CreateForm(TformAlterarSenha, formAlterarSenha);
+  Application.CreateForm(TForm5, Form5);
+  Application.Run;
+end.

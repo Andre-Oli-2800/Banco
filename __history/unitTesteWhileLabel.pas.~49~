@@ -1,0 +1,76 @@
+unit unitTesteWhileLabel;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,unitTeste, Vcl.Buttons,
+  Vcl.ExtDlgs;
+
+type
+  TformTesteWhileLabel = class(TForm)
+    escolherArq: TOpenDialog;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
+    txtSelecionar: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
+    txtNome: TEdit;
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formTesteWhileLabel: TformTesteWhileLabel;
+  teste: String;
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure TformTesteWhileLabel.BitBtn1Click(Sender: TObject);
+var
+///arq:TBlobField;
+arqSelecionado: String;
+begin
+  arqSelecionado := '';
+  try
+    escolherArq.InitialDir := 'C:\';
+    escolherArq.Filter := 'Arquivos Imagem | *.png;*.bmp;*.jpg';
+    if escolherArq.Execute(Handle) then
+    arqSelecionado := escolherArq.FileName;
+    txtSelecionar.Text := arqSelecionado
+  finally
+    escolherArq.Free;
+end;
+
+
+//showMessage('Teste FORM: '+teste);
+  {with formTeste do
+  begin
+    show;
+    teste := unitTeste.formTeste.testeForm;
+    txtBusca.Text := testeGlobal;
+  end;                }
+end;
+
+
+procedure TformTesteWhileLabel.BitBtn2Click(Sender: TObject);
+begin
+//Query1Files.SaveToFile('c:\Data\' + Query1FileName.AsString);
+//TBlobField(MyTable.FieldByName('SOM')).SaveToFile('MyWaveCopy.60wav');
+
+DM.sqlTesteArquivos.SQL.clear;
+DM.sqlTesteArquivos.SQL.add('insert into testeArquivos (nome,arquivo)');
+DM.sqlTesteArquivos.SQL.add('values ('+quotedstr(txtNome.Text)+','+quotedstr(txtSelecionar.Text)+')');
+DM.sqlTesteArquivos.Prepare;
+DM.sqlTesteArquivos.ExecSQL;
+showMessage('Arquivo inserido com sucesso');
+end;
+
+end.

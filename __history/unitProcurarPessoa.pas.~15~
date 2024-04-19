@@ -1,0 +1,46 @@
+unit unitProcurarPessoa;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  Vcl.StdCtrls, Vcl.ExtCtrls;
+
+type
+  TformProcurarPessoa = class(TForm)
+    gridPessoas: TDBGrid;
+    Label1: TLabel;
+    Panel1: TPanel;
+    txtBusca: TEdit;
+    procedure txtBuscaChange(Sender: TObject);
+    procedure gridPessoasCellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formProcurarPessoa: TformProcurarPessoa;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, unitRetornarSaldo;
+
+procedure TformProcurarPessoa.gridPessoasCellClick(Column: TColumn);
+begin
+formRetornarSaldo.showModal;
+formRetornarSaldo.lblId.caption := '1';
+end;
+
+procedure TformProcurarPessoa.txtBuscaChange(Sender: TObject);
+begin
+      DM.tbPessoas.filtered := false;
+      DM.tbPessoas.filter := 'nome like ' +quotedstr('%'+txtBusca.Text+'%');
+      DM.tbPessoas.Filtered := true;
+end;
+
+end.

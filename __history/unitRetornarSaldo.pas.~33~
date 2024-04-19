@@ -1,0 +1,72 @@
+unit unitRetornarSaldo;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Mask,
+  Vcl.DBCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids;
+
+type
+  TformRetornarSaldo = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Panel1: TPanel;
+    Label4: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    txtID: TEdit;
+    txtNome: TEdit;
+    txtSaldo: TEdit;
+    gridPessoas: TDBGrid;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure gridPessoasCellClick(Column: TColumn);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formRetornarSaldo: TformRetornarSaldo;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, unitProcurarPessoa;
+
+procedure TformRetornarSaldo.Button1Click(Sender: TObject);
+begin
+//formProcurarPessoa.showModal;
+DM.sqlCadastro.SQL.Clear;
+DM.sqlCadastro.SQL.Add('select nome, saldo from pessoas where id = '''+txtID.Text+'''');
+DM.sqlCadastro.Open;
+txtNome.Text := DM.sqlCadastro.Fieldbyname('nome').AsString;
+txtSaldo.Text := DM.sqlCadastro.FieldByName('saldo').AsString;
+end;
+
+procedure TformRetornarSaldo.Button2Click(Sender: TObject);
+begin
+
+try
+DM.sqlCadastro.SQL.Clear;
+DM.sqlCadastro.SQL.Add('UPDATE pessoas set saldo = '+txtSaldo.Text+' where nome = '''+txtNome.Text+'''');
+DM.sqlCadastro.execSQL;
+Application.MessageBox('Saldo atualizado com sucesso!','Informação',MB_ICONINFORMATION);
+Except
+on E:Exception do
+Application.MessageBox('Erro em efetuar a atualixação do saldo','Erro',MB_ICONERROR);
+
+end;
+end;
+
+procedure TformRetornarSaldo.gridPessoasCellClick(Column: TColumn);
+begin
+txtNome.text := gridPessoas.columns[1].Field.value;
+txtSaldo.text := gridPessoas.columns[8].Field.value;
+end;
+
+end.

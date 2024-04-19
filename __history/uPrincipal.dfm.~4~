@@ -1,0 +1,42 @@
+object Form5: TForm5
+  Left = 0
+  Top = 0
+  Caption = 'Form5'
+  ClientHeight = 528
+  ClientWidth = 732
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -12
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  Menu = MainMenu1
+  TextHeight = 15
+  object MainMenu1: TMainMenu
+    Left = 312
+    Top = 184
+    object Sistema1: TMenuItem
+      Caption = 'Sistema'
+      object S1: TMenuItem
+        Caption = 'Sair'
+        OnClick = S1Click
+      end
+    end
+    object C1: TMenuItem
+      Caption = 'Cadastros'
+      object CadastrodeProdutos1: TMenuItem
+        Caption = 'Cadastro de Produtos'
+        OnClick = CadastrodeProdutos1Click
+      end
+    end
+    object Movimentaes1: TMenuItem
+      Caption = 'Movimenta'#231#245'es'
+      object GerenciarMovimentaes1: TMenuItem
+        Caption = 'Gerenciar Movimenta'#231#245'es'
+      end
+      object GerenciarMovimentaes2: TMenuItem
+        Caption = 'Consultar Movimenta'#231#245'es'
+      end
+    end
+  end
+end

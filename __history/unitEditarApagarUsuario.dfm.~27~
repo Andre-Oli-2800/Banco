@@ -1,0 +1,385 @@
+object formEditarApagarUsuario: TformEditarApagarUsuario
+  Left = 0
+  Top = 0
+  Caption = 'formEditarApagarUsuario'
+  ClientHeight = 591
+  ClientWidth = 729
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label2: TLabel
+    Left = 41
+    Top = 163
+    Width = 60
+    Height = 23
+    Caption = 'Usu'#225'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object TLabel
+    Left = 41
+    Top = 118
+    Width = 48
+    Height = 23
+    Caption = 'Nome'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label4: TLabel
+    Left = 372
+    Top = 115
+    Width = 50
+    Height = 23
+    Caption = 'Altura'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label5: TLabel
+    Left = 41
+    Top = 215
+    Width = 44
+    Height = 23
+    Caption = 'Email'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label6: TLabel
+    Left = 484
+    Top = 115
+    Width = 56
+    Height = 23
+    Caption = 'Celular'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label7: TLabel
+    Left = 372
+    Top = 163
+    Width = 162
+    Height = 23
+    Caption = 'Data de Nascimento'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label8: TLabel
+    Left = 213
+    Top = 32
+    Width = 289
+    Height = 37
+    Alignment = taCenter
+    Caption = 'Editar/Deletar Usu'#225'rio'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -27
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 41
+    Top = 265
+    Width = 48
+    Height = 23
+    Caption = 'Senha'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label9: TLabel
+    Left = 372
+    Top = 215
+    Width = 122
+    Height = 23
+    Caption = 'Saldo da Conta'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -17
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label3: TLabel
+    Left = 40
+    Top = 80
+    Width = 31
+    Height = 13
+    Caption = 'Label3'
+  end
+  object DBNavigator1: TDBNavigator
+    Left = 8
+    Top = 320
+    Width = 369
+    Height = 49
+    DataSource = DM.dsPessoas
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast, nbDelete, nbEdit, nbPost, nbCancel, nbRefresh]
+    TabOrder = 0
+  end
+  object DBGrid1: TDBGrid
+    Left = 16
+    Top = 408
+    Width = 697
+    Height = 175
+    DataSource = DM.dsPessoas
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'id'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'nome'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'usuario'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'dataNascimento'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'altura'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'telefone'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'email'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'senha'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'saldo'
+        Visible = True
+      end>
+  end
+  object Button1: TButton
+    Left = 496
+    Top = 280
+    Width = 89
+    Height = 33
+    Caption = 'Editar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Button2: TButton
+    Left = 496
+    Top = 333
+    Width = 89
+    Height = 36
+    Caption = 'Deletar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+    OnClick = Button2Click
+  end
+  object txtNome: TDBEdit
+    Left = 95
+    Top = 114
+    Width = 121
+    Height = 27
+    DataField = 'nome'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+  end
+  object txtUser: TDBEdit
+    Left = 107
+    Top = 160
+    Width = 121
+    Height = 27
+    DataField = 'usuario'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+  end
+  object txtEmail: TDBEdit
+    Left = 91
+    Top = 214
+    Width = 121
+    Height = 27
+    DataField = 'email'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 6
+  end
+  object txtSenha: TDBEdit
+    Left = 95
+    Top = 264
+    Width = 121
+    Height = 27
+    DataField = 'senha'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 7
+  end
+  object txtAltura: TDBEdit
+    Left = 428
+    Top = 114
+    Width = 50
+    Height = 27
+    DataField = 'altura'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 8
+  end
+  object txtCel: TDBEdit
+    Left = 546
+    Top = 114
+    Width = 127
+    Height = 27
+    DataField = 'telefone'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    MaxLength = 14
+    ParentFont = False
+    TabOrder = 9
+  end
+  object txtSaldo: TDBEdit
+    Left = 500
+    Top = 214
+    Width = 121
+    Height = 27
+    DataField = 'saldo'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 10
+  end
+  object txtID: TDBEdit
+    Left = 86
+    Top = 75
+    Width = 121
+    Height = 21
+    DataField = 'id'
+    DataSource = DM.dsPessoas
+    TabOrder = 11
+  end
+  object dtpDataNasc: TDateTimePicker
+    Left = 540
+    Top = 163
+    Width = 128
+    Height = 27
+    Date = 45007.000000000000000000
+    Time = 0.347949733797577200
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 12
+  end
+  object txtDataNasc: TDBEdit
+    Left = 591
+    Top = 319
+    Width = 117
+    Height = 27
+    DataField = 'dataNascimento'
+    DataSource = DM.dsPessoas
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    MaxLength = 10
+    ParentFont = False
+    TabOrder = 13
+  end
+end

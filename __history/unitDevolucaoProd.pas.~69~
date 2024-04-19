@@ -1,0 +1,88 @@
+unit unitDevolucaoProd;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.DBCtrls, Vcl.ComCtrls;
+
+type
+  TformDevolucaoProduto = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Button1: TButton;
+    txtQtd: TEdit;
+    Label7: TLabel;
+    Label5: TLabel;
+    Label8: TLabel;
+    txtLote: TEdit;
+    Button2: TButton;
+    Label9: TLabel;
+    txtValidade: TEdit;
+    txtFabricacao: TEdit;
+    txtDataDevo: TEdit;
+    txtProduto: TEdit;
+    lcbCliente: TDBLookupComboBox;
+    dtFabricacao: TDateTimePicker;
+    dtValidade: TDateTimePicker;
+    procedure Button2Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formDevolucaoProduto: TformDevolucaoProduto;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure TformDevolucaoProduto.Button1Click(Sender: TObject);
+begin
+DM.sqlDevolucaoProduto.SQL.Clear;
+DM.sqlDevolucaoProduto.SQL.add('insert into devolucaoProduto (cliente,idProduto,Qtd,fabricacao,vencimento,dataDevolucao)');
+DM.sqlDevolucaoProduto.SQL.add('values ('+quotedstr(lcbCliente.Text)+','+quotedstr(txtProduto.Text)+','+quotedstr(txtQtd.Text)+','+quotedstr(txtFabricacao.Text)+','+quotedstr(txtValidade.Text)+','+quotedstr(txtDataDevo.Text)+')');
+DM.sqlDevolucaoProduto.Prepare;
+DM.sqlDevolucaoProduto.ExecSQL;
+
+DM.sqlInserirProduto.SQL.clear;
+DM.sqlInserirProduto.SQL.add('insert into inserirproduto(idProduto,qtd,fabricacao,validade,lote)');
+DM.sqlInserirProduto.SQL.add('values (' +quotedstr(txtProduto.text)+','+quotedstr(txtQtd.Text)+',:pFabricacao,:pValidade'+','+txtLote.text+')');
+DM.sqlInserirProduto.ParamByName('pFabricacao').Value := txtFabricacao.Text;
+DM.sqlInserirProduto.ParamByName('pValidade').Value := txtValidade.Text;
+DM.sqlInserirProduto.execSQL;
+DM.tbInserirProduto.refresh;
+end;
+
+procedure TformDevolucaoProduto.Button2Click(Sender: TObject);
+var
+lote: String;
+begin
+DM.sqlInserirProduto.SQL.clear;
+DM.sqlInserirProduto.SQL.add('select id,idProduto, qtd, fabricacao, validade, lote from inserirProduto where lote ='+quotedstr(txtLote.Text));
+DM.sqlInserirProduto.open;
+lote:= DM.sqlInserirProduto.FieldByName('lote').asString;
+
+
+if lote <> '' then
+begin
+txtQtd.Text := DM.sqlInserirProduto.FieldByName('qtd').asString;
+txtProduto.Text := DM.sqlInserirProduto.FieldByName('idProduto').asString;
+txtFabricacao.Text := DM.sqlInserirProduto.FieldByName('fabricacao').asString;
+txtValidade.Text := DM.sqlInserirProduto.FieldByName('validade').asString;
+txtDataDevo.Text := DatetoStr(Now);
+//txtCliente. := DM.sqlInserirProduto.FieldByName('idProduto').asString;
+
+
+end;
+
+end;
+
+end.

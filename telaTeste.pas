@@ -34,13 +34,17 @@ type
     txtEmail: TEdit;
     txtSobrenome: TEdit;
     cbSexo: TComboBox;
+    Timer1: TTimer;
+    ComboBox1: TComboBox;
     procedure btnLoginClick(Sender: TObject);
     procedure btnCadastrarClick(Sender: TObject);
 
   private
+    //procedure LimpaEdits;
     { Private declarations }
   public
     { Public declarations }
+    procedure limparCampos;
   end;
 
 var
@@ -56,10 +60,6 @@ procedure TformCadastro.btnCadastrarClick(Sender: TObject);
 var
 agencia,banco: integer;
 begin
-  {DM.sqlCadastro.ParamByName('pDataNasc').Value  := FormatDateTime('YYYY-MM-DD',dtpDataNascimento.Date);
-  DM.sqlCadastro.ParamByName('pAltura').Value := strtofloat(txtAltura.Text);
-  DM.sqlCadastro.ParamByName('pSaldo').Value := strtofloat(txtSaldo.Text);
-  lblMsg.Font.Color := clGreen;}
   if (txtCpf.Text = '') or (txtNome.Text = '') or (txtSobrenome.Text = '') or (txtEmail.Text = '') or (cbSexo.Text = '') or (txtTelefone.Text = '') or (txtCelular.Text = '') or (txtSenha.Text = '') or (txtConfirSenha.text = '') then
   begin
     lblMsg.Font.Color := clRed;
@@ -78,6 +78,18 @@ begin
     lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse CPF';
   end
   else
+  if DM.qCadastro.FieldByName('celular').AsString = txtCelular.Text then
+  begin
+    lblMsg.Font.Color := clRed;
+    lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse número de celular';
+  end
+  else
+  if DM.qCadastro.FieldByName('email').AsString = txtEmail.Text then
+  begin
+    lblMsg.Font.Color := clRed;
+    lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse e-mail';
+  end
+  else
   begin
     DM.qCadastro.Close;
     DM.qCadastro.SQL.Clear;
@@ -90,18 +102,40 @@ begin
 
     DM.qDadosBancarios.Close;
     DM.qDadosBancarios.SQL.Clear;
-    DM.qDadosBancarios.SQL.Add('Insert into dadosBancarios (agencia,conta,saldo,cpf)');
+    DM.qDadosBancarios.SQL.Add('Insert into dadosBancarios (agencia,conta,saldo,cpf,celular)');
     Randomize;
+
+
     agencia := 1+Random(100);
+
     banco := 1+Random(100);
-    DM.qDadosBancarios.SQL.Add('values ('+InttoStr(agencia)+','+InttoStr(banco)+',0,'+quotedStr(txtCpf.Text)+')');
+
+    DM.qDadosBancarios.SQL.Add('values ('+InttoStr(agencia)+','+InttoStr(banco)+',0,'+quotedStr(txtCpf.Text)+','+quotedStr(txtCelular.Text)+')');
     DM.qDadosBancarios.ExecSQL;
+    limparCampos;
   end;
 end;
 
 procedure TformCadastro.btnLoginClick(Sender: TObject);
 begin
 formLogin.ShowModal;
+end;
+
+procedure TformCadastro.limparCampos;
+var
+i : Integer;
+begin
+  for i := 0 to formCadastro.ComponentCount-1 do
+  begin
+    if formCadastro.Components[i] is TEdit then
+      (formCadastro.Components[i] as TEdit).Text:='';
+    if formCadastro.Components[i] is TMaskEdit then
+      (formCadastro.Components[i] as TMaskEdit).Text:='';
+    if formCadastro.Components[i] is TDateTimePicker then
+      (formCadastro.Components[i] as TDateTimePicker).Date:= StrtoDate('01/01/2006');
+    if formCadastro.Components[i] is TComboBox then
+      (formCadastro.Components[i] as TComboBox).Text:='';
+  end;
 end;
 
 end.

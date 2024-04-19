@@ -1,0 +1,309 @@
+unit unitComprarProduto;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.DBCtrls, Vcl.ExtCtrls,
+  Vcl.StdCtrls, Vcl.Mask, Vcl.Grids, Vcl.DBGrids, Vcl.Buttons;
+
+type
+  TformComprarProdutos = class(TForm)
+    lblNome: TLabel;
+    lblMarca: TLabel;
+    Label6: TLabel;
+    gridComprarProdutos: TDBGrid;
+    txtQtd: TDBEdit;
+    Label1: TLabel;
+    lookCliente: TDBLookupComboBox;
+    lookProduto: TDBLookupComboBox;
+    pComprarProduto: TPanel;
+    Label2: TLabel;
+    lblQuantidadeDisponivel: TLabel;
+    BitBtn1: TBitBtn;
+    Label3: TLabel;
+    lblTotal: TLabel;
+    Button2: TButton;
+    lcbFornecedor: TDBLookupComboBox;
+    Label4: TLabel;
+    Label5: TLabel;
+    cbFornecedor: TComboBox;
+    procedure FormClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure gridComprarProdutosCellClick(Column: TColumn);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure lookProdutoClick(Sender: TObject);
+    procedure lcbFornecedorExit(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formComprarProdutos: TformComprarProdutos;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas;
+
+procedure verificarQuantidade;
+
+var
+somaQtd,quantComprada: integer;
+valorLookup: String;
+begin
+  somaQtd:=0;
+  quantComprada:=0;
+
+  valorLookup:= formComprarProdutos.lookProduto.Keyvalue;
+
+  DM.tbInserirProduto.First;
+
+  while not DM.tbInserirProduto.Eof do
+  begin
+    if DM.tbInserirProduto.FieldByName('idProduto').AsString = valorLookup then
+    begin
+       somaQtd := somaQtd + DM.tbInserirProduto.fieldbyName('qtd').Value;
+       DM.tbInserirProduto.Next;
+    end;
+  end;
+
+
+    DM.tbComprarProduto.First;
+    while not DM.tbComprarProduto.Eof do
+    begin
+       quantComprada := quantComprada + DM.tbComprarProduto.fieldbyName('qtd').Value;
+       DM.tbComprarProduto.Next;
+    end;
+  somaQtd:=somaQtd-quantComprada;
+  formComprarProdutos.lblQuantidadeDisponivel.Caption:= IntToStr(somaQtd);
+
+
+  if somaQtd <= 0 then
+  begin
+    showMessage('Sem estoque disponível');
+    exit;
+  end;
+end;
+
+
+
+
+
+procedure TformComprarProdutos.BitBtn1Click(Sender: TObject);
+
+var
+somaQtd,quantComprada: integer;
+arquivoTexto: TextFile;
+Arq,nomeProduto,valorLookup,id,idFornecedor: String;
+begin
+somaQtd:=0;
+quantComprada:=0;
+
+valorLookup := lookProduto.KeyValue;
+
+DM.tbInserirProduto.First;
+
+  while not DM.tbInserirProduto.Eof do
+  begin
+    if DM.tbInserirProduto.FieldByName('idProduto').AsString = valorLookup then
+     begin
+       somaQtd := somaQtd + DM.tbInserirProduto.fieldbyName('qtd').Value;
+       DM.tbInserirProduto.Next;
+     end;
+       DM.tbInserirProduto.Next;
+  end;
+
+
+  DM.tbComprarProduto.First;
+
+  while not DM.tbComprarProduto.Eof do
+  begin
+     if DM.tbComprarProduto.FieldByName('idProduto').AsString = valorLookup then
+     begin
+       quantComprada := quantComprada + DM.tbComprarProduto.fieldbyName('qtd').Value;
+       DM.tbComprarProduto.Next;
+     end;
+       DM.tbComprarProduto.Next;
+  end;
+
+somaQtd:=somaQtd-quantComprada;
+formComprarProdutos.lblQuantidadeDisponivel.Caption:= IntToStr(somaQtd);
+
+//DM.tbComprarProduto.insert;
+//if somaQtd <= 0 then
+//  begin
+//  showMessage('Sem estoque disponível');
+//  exit;
+//  end;
+
+if somaQtd - StrToInt(txtQtd.Text) < 0 then
+  begin
+    showMessage('Quantidade no estoque insuficiente para realizar a compra');
+
+    DM.sqlComprarProduto.SQL.Clear;
+    DM.sqlComprarProduto.SQL.add('SELECT MAX(id) as id FROM comprarproduto');
+    DM.sqlComprarProduto.open;
+    id := DM.sqlComprarProduto.FieldByName('id').AsString;
+
+    DM.sqlComprarProduto.SQL.Clear;
+    DM.sqlComprarProduto.SQL.add('delete from comprarproduto where id = :pID');
+    DM.sqlComprarProduto.ParamByName('pID').Value := id;
+    DM.sqlComprarProduto.execSQL;
+    DM.tbProdutos.Refresh;
+
+    exit;
+  end
+  else
+  begin
+    DM.sqlInserirProduto.SQL.clear;
+
+    DM.sqlCondFornecedores.SQL.clear;
+    DM.sqlCondFornecedores.SQL.add('select idFornec from prodfornec where nomeFornecedor = '+ quotedstr(lookCliente.Text));
+    DM.sqlCondFornecedores.Open;
+    idFornecedor:=DM.sqlCondFornecedores.FieldByName('idFornec').AsString;
+
+    //DM.sqlInserirProduto.SQL.add('insert into comprarproduto (idFornecedor,idPessoa,idProduto,qtd)');
+    //DM.sqlInserirProduto.SQL.add('values ('+idFornecedor+','+quotedstr(lookCliente.KeyValue)+','+quotedstr(lookProduto.KeyValue)+','+quotedstr(txtQtd.Text)+')');
+    DM.sqlInserirProduto.SQL.add('insert into comprarproduto (idPessoa,idProduto,qtd)');
+    DM.sqlInserirProduto.SQL.add('values ('+quotedstr(lookCliente.KeyValue)+','+quotedstr(lookProduto.KeyValue)+','+quotedstr(txtQtd.Text)+')');
+    DM.sqlInserirProduto.ExecSQL;
+    Application.MessageBox('Compra realizada com sucesso','Informação',MB_ICONINFORMATION);
+
+  end;
+
+  if DM.tbAtivador.fieldbyname('notaFiscal').asString = 'S' then
+  begin
+    Arq := 'C:\Users\Andre\OneDrive\Área de Trabalho\Teste.txt';
+    AssignFile(arquivoTexto,Arq);
+    if not FileExists(Arq) then
+    begin
+      Rewrite(arquivoTexto,Arq);
+      Append(arquivoTexto);
+      Writeln(arquivoTexto,'Teste');
+    end;
+  end;
+  BitBtn1.Enabled := false;
+  end;
+
+
+
+procedure TformComprarProdutos.gridComprarProdutosCellClick(Column: TColumn);
+var
+quantidade,qtdProdutosEstoque,qtdProdComprados: integer;
+preco: real;
+nomeProduto,valorGrid: String;
+begin
+  quantidade := strtoint(txtQtd.Text);
+  DM.sqlProdutos.SQL.clear;
+  DM.sqlProdutos.SQL.add('select preco from produto where nome = '+quotedstr(lookProduto.Text));
+  DM.sqlProdutos.open;
+  preco:= DM.sqlProdutos.fieldbyname('preco').asFloat;
+  lblTotal.Caption:= floattostr(quantidade*preco);
+  DM.tbInserirProduto.First;
+
+  while not DM.tbInserirProduto.Eof do
+  begin
+     if DM.tbInserirProduto.FieldByName('idProduto').AsString = gridComprarProdutos.columns.items[2].field.text then
+       begin
+           qtdProdutosEstoque :=  qtdProdutosEstoque + DM.tbInserirProduto.FieldByName('qtd').AsInteger;
+           DM.tbInserirProduto.Next;
+       end
+     else
+       begin
+         DM.tbInserirProduto.Next;
+       end;
+  end;
+
+  valorGrid := gridComprarProdutos.columns.items[2].field.text;
+
+  DM.tbComprarProduto.First;
+  while not DM.tbComprarProduto.Eof do
+  begin
+     if DM.tbComprarProduto.FieldByName('idProduto').AsString = valorGrid then
+     begin
+       qtdProdComprados := qtdProdComprados + DM.tbComprarProduto.FieldByName('qtd').asInteger;
+       DM.tbComprarProduto.Next;
+     end
+     else
+     begin
+       DM.tbComprarProduto.Next;
+     end;
+
+  end;
+
+  qtdProdutosEstoque := qtdProdutosEstoque - qtdProdComprados;
+  lblQuantidadeDisponivel.Caption:= inttostr(qtdProdutosEstoque);
+end;
+
+
+
+
+procedure TformComprarProdutos.lcbFornecedorExit(Sender: TObject);
+var
+valorTeste: String;
+begin
+  DM.tbCondFornecedores.First;
+  cbFornecedor.Clear;
+  valorTeste :=lcbFornecedor.KeyValue;
+  While not DM.tbCondFornecedores.eof do
+  begin
+    if DM.tbCondFornecedores.FieldByName('nomeFornecedor').AsString = lcbFornecedor.Text then
+    begin
+
+      cbFornecedor.items.Add(DM.tbCondFornecedores.FieldByName('nomeProduto').AsString);
+      DM.tbCondFornecedores.Next;
+    end;
+    DM.tbCondFornecedores.Next;
+  end;
+end;
+
+procedure TformComprarProdutos.lookProdutoClick(Sender: TObject);
+begin
+  DM.sqlComprarProduto.SQL.clear;
+  DM.sqlComprarProduto.SQL.add('select c.idProduto from comprarproduto c join prodfornec pf on c.id = pf.id where pf.idFornec = '+quotedstr(lcbFornecedor.KeyValue));
+  DM.sqlComprarProduto.open;
+  DM.sqlComprarProduto.First;
+  While not DM.sqlComprarProduto.eof do
+  begin
+    cbFornecedor.items.add(DM.sqlComprarProduto.FieldByName('idProduto').AsString);
+    DM.sqlComprarProduto.Next;
+  end;
+end;
+
+procedure TformComprarProdutos.Button1Click(Sender: TObject);
+begin
+//DM.sqlComprarProduto.SQL.Clear;
+//DM.sqlCadastro.SQL.Clear;
+//DM.sqlComprarProduto.SQL.add('select cp.IdPessoa, pe.nome from comprarproduto cp join produto p on cp.idProduto = p.id join pessoas pe on cp.idPessoa = pe.id where cp.id = ''' +txtID.Text+ ''' ');
+//DM.sqlCadastro.SQL.add('select cp.IdProduto, p.nome from comprarproduto cp join produto p on cp.idProduto = p.id join pessoas pe on cp.idPessoa = pe.id where cp.id = ''' +txtID.Text+ ''' ');
+//DM.sqlComprarProduto.open;
+//DM.sqlCadastro.open;
+//txtCliente.text := DM.sqlComprarProduto.FieldByName('nome').AsString;
+//txtIDCliente.Text := DM.sqlComprarProduto.FieldByName('IdPessoa').AsString;
+
+//txtProduto.text := DM.sqlCadastro.FieldByName('nome').AsString;     -
+//txtIDProduto.Text := DM.sqlCadastro.FieldByName('idProduto').AsString;
+end;
+
+procedure TformComprarProdutos.Button2Click(Sender: TObject);
+begin
+  DM.tbComprarProduto.Insert;
+  BitBtn1.Enabled := true;
+end;
+
+
+
+
+
+procedure TformComprarProdutos.FormClick(Sender: TObject);
+
+begin
+  verificarQuantidade;
+end;
+
+end.

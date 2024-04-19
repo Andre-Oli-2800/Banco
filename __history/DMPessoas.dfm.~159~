@@ -1,0 +1,659 @@
+object DM: TDM
+  OldCreateOrder = True
+  Height = 750
+  Width = 1098
+  object conexao: TFDConnection
+    Params.Strings = (
+      'Database=teste'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 376
+    Top = 64
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\wamp\bin\mysql\mysql5.7.40\lib\libmysql.dll'
+    Left = 472
+    Top = 64
+  end
+  object dsPessoas: TDataSource
+    DataSet = tbPessoas
+    Left = 120
+    Top = 288
+  end
+  object tbPessoas: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.pessoas'
+    Left = 120
+    Top = 184
+    object tbPessoasid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbPessoasnome: TStringField
+      FieldName = 'nome'
+      Origin = 'nome'
+      Required = True
+      Size = 80
+    end
+    object tbPessoasusuario: TStringField
+      FieldName = 'usuario'
+      Origin = 'usuario'
+      Required = True
+      Size = 50
+    end
+    object tbPessoasdataNascimento: TDateField
+      FieldName = 'dataNascimento'
+      Origin = 'dataNascimento'
+      Required = True
+      EditMask = '##/##/####'
+    end
+    object tbPessoasaltura: TSingleField
+      FieldName = 'altura'
+      Origin = 'altura'
+      Required = True
+    end
+    object tbPessoastelefone: TStringField
+      FieldName = 'telefone'
+      Origin = 'telefone'
+      Required = True
+      EditMask = '(##)#####-####'
+      Size = 15
+    end
+    object tbPessoasemail: TStringField
+      FieldName = 'email'
+      Origin = 'email'
+      Required = True
+      Size = 50
+    end
+    object tbPessoassenha: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'senha'
+      Origin = 'senha'
+      Size = 50
+    end
+    object tbPessoassaldo: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'saldo'
+      Origin = 'saldo'
+    end
+  end
+  object sqlLogin: TFDQuery
+    Connection = conexao
+    SQL.Strings = (
+      'select * from pessoas')
+    Left = 208
+    Top = 184
+  end
+  object dsLogin: TDataSource
+    DataSet = tbPessoas
+    Left = 208
+    Top = 288
+  end
+  object dsAtivador: TDataSource
+    DataSet = tbAtivador
+    Left = 288
+    Top = 288
+  end
+  object tbAtivador: TFDTable
+    Active = True
+    Connection = conexao
+    TableName = 'teste.ativador'
+    Left = 288
+    Top = 184
+  end
+  object tbProdutos: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'produto'
+    Left = 376
+    Top = 184
+    object tbProdutosid: TIntegerField
+      FieldName = 'id'
+      Origin = 'id'
+      Required = True
+    end
+    object tbProdutosnome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 80
+    end
+    object tbProdutosmarca: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'marca'
+      Origin = 'marca'
+      Size = 50
+    end
+    object tbProdutospeso: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'peso'
+      Origin = 'peso'
+    end
+    object tbProdutosfabricacao: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'fabricacao'
+      Origin = 'fabricacao'
+      EditMask = '##/##/####;1;_'
+    end
+    object tbProdutosvalidade: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'validade'
+      Origin = 'validade'
+      EditMask = '##/##/####'
+    end
+    object tbProdutosobs: TMemoField
+      AutoGenerateValue = arDefault
+      FieldName = 'obs'
+      Origin = 'obs'
+      BlobType = ftMemo
+    end
+    object tbProdutospreco: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'preco'
+      Origin = 'preco'
+    end
+    object tbProdutostipoPeso: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'tipoPeso'
+      Origin = 'tipoPeso'
+      FixedChar = True
+      Size = 3
+    end
+  end
+  object dsProdutos: TDataSource
+    DataSet = tbProdutos
+    Left = 376
+    Top = 288
+  end
+  object tbComprarProduto: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'comprarproduto'
+    Left = 496
+    Top = 184
+    object tbComprarProdutoid: TFDAutoIncField
+      DisplayWidth = 10
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbComprarProdutoidPessoa: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'idPessoa'
+      Origin = 'idPessoa'
+    end
+    object tbComprarProdutoidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object tbComprarProdutoqtd: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object tbComprarProdutonomeProduto: TStringField
+      DisplayWidth = 15
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 80
+      Lookup = True
+    end
+    object tbComprarProdutonomePessoa: TStringField
+      DisplayWidth = 80
+      FieldKind = fkLookup
+      FieldName = 'nomePessoa'
+      LookupDataSet = tbPessoas
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idPessoa'
+      Size = 80
+      Lookup = True
+    end
+    object tbComprarProdutoidFornecedor: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idFornecedor'
+      Origin = 'idFornecedor'
+    end
+    object tbComprarProdutonomeFornecedor: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeFornecedor'
+      LookupDataSet = tbFornecedores
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idFornecedor'
+      Size = 80
+      Lookup = True
+    end
+  end
+  object dsComprarProduto: TDataSource
+    DataSet = tbComprarProduto
+    Left = 496
+    Top = 288
+  end
+  object sqlConsulta: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from pessoas')
+    Left = 608
+    Top = 184
+    ParamData = <
+      item
+        Name = 'pNome'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pDataInicio'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pDataFinal'
+        ParamType = ptInput
+      end>
+  end
+  object dsConsulta: TDataSource
+    DataSet = sqlConsulta
+    Left = 608
+    Top = 288
+  end
+  object tbInserirProduto: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.inserirproduto'
+    Left = 720
+    Top = 184
+    object tbInserirProdutoid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbInserirProdutoidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object tbInserirProdutoqtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object tbInserirProdutonomeProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 80
+      Lookup = True
+    end
+    object tbInserirProdutofabricacao: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'fabricacao'
+      Origin = 'fabricacao'
+    end
+    object tbInserirProdutovalidade: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'validade'
+      Origin = 'validade'
+    end
+    object tbInserirProdutolote: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'lote'
+      Origin = 'lote'
+    end
+  end
+  object dsInserirProduto: TDataSource
+    DataSet = tbInserirProduto
+    Left = 720
+    Top = 288
+  end
+  object sqlInserirProduto: TFDQuery
+    Active = True
+    Filtered = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from inserirProduto;')
+    Left = 848
+    Top = 184
+    object sqlInserirProdutoid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlInserirProdutoidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object sqlInserirProdutoqtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object sqlInserirProdutonomeProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 80
+      Lookup = True
+    end
+    object sqlInserirProdutofabricacao: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'fabricacao'
+      Origin = 'fabricacao'
+    end
+    object sqlInserirProdutovalidade: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'validade'
+      Origin = 'validade'
+    end
+    object sqlInserirProdutolote: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'lote'
+      Origin = 'lote'
+    end
+  end
+  object dsInserirProduto2: TDataSource
+    DataSet = sqlInserirProduto
+    Left = 848
+    Top = 288
+  end
+  object sqlCadastro: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from pessoas')
+    Left = 24
+    Top = 184
+    ParamData = <
+      item
+        Name = 'pDataNasc'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pAltura'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pSaldo'
+        ParamType = ptInput
+      end>
+  end
+  object dsCadastro: TDataSource
+    DataSet = sqlCadastro
+    Left = 24
+    Top = 288
+  end
+  object sqlProdutos: TFDQuery
+    Active = True
+    Filtered = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from produto')
+    Left = 24
+    Top = 392
+  end
+  object dsProdutosSQL: TDataSource
+    DataSet = sqlProdutos
+    Left = 24
+    Top = 496
+  end
+  object tbTipoPeso: TFDTable
+    Active = True
+    Connection = conexao
+    TableName = 'teste.tipopeso'
+    Left = 120
+    Top = 392
+  end
+  object dsTipoPeso: TDataSource
+    DataSet = tbTipoPeso
+    Left = 120
+    Top = 496
+  end
+  object sqlValorPagar: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from valorPagar')
+    Left = 216
+    Top = 392
+  end
+  object dsValorPagar: TDataSource
+    DataSet = sqlValorPagar
+    Left = 216
+    Top = 496
+  end
+  object sqlComprarProduto: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from comprarproduto')
+    Left = 344
+    Top = 392
+    ParamData = <
+      item
+        Name = 'pID'
+        ParamType = ptInput
+      end>
+  end
+  object dsComprarProduto2: TDataSource
+    DataSet = sqlComprarProduto
+    Left = 344
+    Top = 496
+  end
+  object sqlTesteRadioGroup: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from testeradiogroup')
+    Left = 480
+    Top = 392
+  end
+  object dsTesteRadioGroup: TDataSource
+    DataSet = sqlTesteRadioGroup
+    Left = 488
+    Top = 496
+  end
+  object TesteRadiboGroup: TFDTable
+    Active = True
+    AfterPost = TesteRadiboGroupAfterPost
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.testeradiogroup'
+    Left = 632
+    Top = 392
+  end
+  object dsTesteRadioGrouptb: TDataSource
+    DataSet = TesteRadiboGroup
+    Left = 632
+    Top = 496
+  end
+  object tbFornecedores: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.fornecedor'
+    Left = 728
+    Top = 392
+  end
+  object dsFornecedores: TDataSource
+    DataSet = tbFornecedores
+    Left = 728
+    Top = 496
+  end
+  object tbCondFornecedores: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.prodfornec'
+    Left = 824
+    Top = 392
+    object tbCondFornecedoresid: TFDAutoIncField
+      DisplayWidth = 10
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbCondFornecedoresidFornec: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'idFornec'
+      Origin = 'idFornec'
+    end
+    object tbCondFornecedoresidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      DisplayWidth = 10
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object tbCondFornecedoresnomeFornecedor: TStringField
+      DisplayWidth = 15
+      FieldKind = fkLookup
+      FieldName = 'nomeFornecedor'
+      LookupDataSet = tbFornecedores
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idFornec'
+      Size = 80
+      Lookup = True
+    end
+    object tbCondFornecedoresnomeProduto: TStringField
+      DisplayWidth = 80
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 80
+      Lookup = True
+    end
+  end
+  object dsCondFornecedores: TDataSource
+    DataSet = tbCondFornecedores
+    Left = 824
+    Top = 496
+  end
+  object sqlCondFornecedores: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from  prodfornec')
+    Left = 952
+    Top = 392
+  end
+  object sqlCondFornecedoresSQL: TDataSource
+    DataSet = sqlCondFornecedores
+    Left = 952
+    Top = 496
+  end
+  object tbTesteArquivos: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.testearquivos'
+    Left = 600
+    Top = 64
+  end
+  object sqlTesteArquivos: TFDQuery
+    Active = True
+    Connection = conexao
+    SQL.Strings = (
+      'select * from testeArquivos')
+    Left = 696
+    Top = 64
+  end
+  object dsTesteArquivos: TDataSource
+    DataSet = tbTesteArquivos
+    Left = 784
+    Top = 64
+  end
+  object sdTesteArquivosSQL: TDataSource
+    DataSet = sqlTesteArquivos
+    Left = 888
+    Top = 64
+  end
+  object tbDevolucaoProduto: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = conexao
+    TableName = 'teste.devolucaoproduto'
+    Left = 120
+    Top = 64
+  end
+  object sqlDevolucaoProduto: TFDQuery
+    Connection = conexao
+    SQL.Strings = (
+      'select * from devolucaoProduto')
+    Left = 288
+    Top = 64
+    object sqlDevolucaoProdutoid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlDevolucaoProdutocliente: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'cliente'
+      Origin = 'cliente'
+      Size = 80
+    end
+    object sqlDevolucaoProdutoidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object sqlDevolucaoProdutoQtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'Qtd'
+      Origin = 'Qtd'
+    end
+    object sqlDevolucaoProdutoFabricacao: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'Fabricacao'
+      Origin = 'Fabricacao'
+    end
+    object sqlDevolucaoProdutoVenciemnto: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'Venciemnto'
+      Origin = 'Venciemnto'
+    end
+    object sqlDevolucaoProdutodataDevolucao: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'dataDevolucao'
+      Origin = 'dataDevolucao'
+    end
+  end
+  object dsDevolucaoProduto: TDataSource
+    DataSet = tbDevolucaoProduto
+    Left = 296
+    Top = 65520
+  end
+  object dsDevolucaoProdutoSQL: TDataSource
+    DataSet = sqlDevolucaoProduto
+    Left = 120
+    Top = 65528
+  end
+end

@@ -3,7 +3,7 @@ object formCadastro: TformCadastro
   Top = 0
   Caption = 'formCadastro'
   ClientHeight = 556
-  ClientWidth = 730
+  ClientWidth = 751
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -51,7 +51,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 344
+    Left = 352
     Top = 166
     Width = 102
     Height = 28
@@ -77,7 +77,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 344
+    Left = 352
     Top = 250
     Width = 60
     Height = 28
@@ -90,7 +90,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label8: TLabel
-    Left = 344
+    Left = 352
     Top = 208
     Width = 5
     Height = 28
@@ -102,7 +102,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label10: TLabel
-    Left = 344
+    Left = 352
     Top = 333
     Width = 145
     Height = 28
@@ -115,7 +115,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label9: TLabel
-    Left = 344
+    Left = 352
     Top = 208
     Width = 42
     Height = 28
@@ -141,7 +141,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label11: TLabel
-    Left = 344
+    Left = 352
     Top = 292
     Width = 177
     Height = 28
@@ -204,7 +204,7 @@ object formCadastro: TformCadastro
     OnClick = btnLoginClick
   end
   object txtDataNascimento: TDateTimePicker
-    Left = 526
+    Left = 534
     Top = 287
     Width = 165
     Height = 36
@@ -215,12 +215,13 @@ object formCadastro: TformCadastro
     Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = []
-    MaxDate = 36865.999988425920000000
+    MaxDate = 38718.999988425920000000
+    MinDate = 2.000000000000000000
     ParentFont = False
     TabOrder = 2
   end
   object txtConfirSenha: TEdit
-    Left = 526
+    Left = 534
     Top = 329
     Width = 165
     Height = 36
@@ -234,7 +235,7 @@ object formCadastro: TformCadastro
     TabOrder = 3
   end
   object txtCelular: TMaskEdit
-    Left = 526
+    Left = 534
     Top = 247
     Width = 164
     Height = 36
@@ -250,7 +251,7 @@ object formCadastro: TformCadastro
     Text = '(  )     -    '
   end
   object txtTelefone: TMaskEdit
-    Left = 155
+    Left = 163
     Top = 290
     Width = 165
     Height = 36
@@ -266,7 +267,7 @@ object formCadastro: TformCadastro
     Text = '(  )    -    '
   end
   object txtCpf: TMaskEdit
-    Left = 155
+    Left = 163
     Top = 163
     Width = 165
     Height = 36
@@ -282,7 +283,7 @@ object formCadastro: TformCadastro
     Text = '   .   .   /  '
   end
   object txtSenha: TEdit
-    Left = 155
+    Left = 163
     Top = 332
     Width = 165
     Height = 36
@@ -296,7 +297,7 @@ object formCadastro: TformCadastro
     TabOrder = 7
   end
   object txtNome: TEdit
-    Left = 155
+    Left = 163
     Top = 205
     Width = 165
     Height = 36
@@ -309,7 +310,7 @@ object formCadastro: TformCadastro
     TabOrder = 8
   end
   object cbSexo: TComboBox
-    Left = 526
+    Left = 534
     Top = 205
     Width = 165
     Height = 36
@@ -326,7 +327,7 @@ object formCadastro: TformCadastro
       'Outro')
   end
   object txtEmail: TEdit
-    Left = 155
+    Left = 163
     Top = 247
     Width = 165
     Height = 36
@@ -339,7 +340,7 @@ object formCadastro: TformCadastro
     TabOrder = 10
   end
   object txtSobrenome: TEdit
-    Left = 526
+    Left = 534
     Top = 163
     Width = 165
     Height = 36
@@ -350,5 +351,30 @@ object formCadastro: TformCadastro
     Font.Style = []
     ParentFont = False
     TabOrder = 11
+  end
+  object ComboBox1: TComboBox
+    Left = 16
+    Top = 28
+    Width = 145
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 12
+    Text = 'ComboBox1'
+    Items.Strings = (
+      'Bradesco'
+      'Caixa'
+      'Nube'
+      'Banco do Brasil'
+      'Ita'#250
+      'Santander')
+  end
+  object Timer1: TTimer
+    Left = 648
+    Top = 496
   end
 end

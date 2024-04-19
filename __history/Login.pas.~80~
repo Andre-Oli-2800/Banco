@@ -1,0 +1,63 @@
+unit Login;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.ExtCtrls,
+  Vcl.DBCtrls;
+
+type
+  TFormLogin = class(TForm)
+    Label1: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Button1: TButton;
+    Button2: TButton;
+    txtSenha: TEdit;
+    txtNome: TEdit;
+    lblMsg: TLabel;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormLogin: TFormLogin;
+
+implementation
+
+{$R *.dfm}
+
+uses DMPessoas, unitListaPessoas, CadastroLogin;
+
+procedure TFormLogin.Button1Click(Sender: TObject);
+var
+usuario: String;
+senha: String;
+begin
+      Dm.sqlLogin.SQL.Clear;
+      DM.sqlLogin.SQL.add('select * from pessoas where nome = '+QuotedStr(txtNome.Text)+' and senha = '+QuotedStr(txtSenha.Text));
+      DM.sqlLogin.Open;
+      if DM.sqlLogin.RecordCount > 0 then
+      begin
+        formListaPessoas.ShowModal;
+      end
+      else
+      begin
+        lblMsg.Caption := 'Nome de usuário/senha inválido';
+        lblMsg.Font.Color := clRed;
+      end;
+end;
+
+procedure TFormLogin.Button2Click(Sender: TObject);
+begin
+  //FormLogin.Visible:= false;
+  //FormCadastro.visible := true;
+  FormCadastro.Close;
+end;
+
+end.

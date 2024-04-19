@@ -1,0 +1,29 @@
+unit unitTeste;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Mask, Vcl.DBCtrls,
+  Vcl.ExtCtrls;
+
+type
+  TformTeste = class(TForm)
+    Label10: TLabel;
+    rgOpcoes: TDBRadioGroup;
+    DBNavigator1: TDBNavigator;
+    txtID: TDBEdit;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  formTeste: TformTeste;
+
+implementation
+
+{$R *.dfm}
+
+end.

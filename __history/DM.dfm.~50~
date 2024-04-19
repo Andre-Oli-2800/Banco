@@ -1,0 +1,234 @@
+object DataModule5: TDataModule5
+  Height = 750
+  Width = 1000
+  PixelsPerInch = 120
+  object dsProdutos: TDataSource
+    DataSet = tbProdutos
+    Left = 312
+    Top = 232
+  end
+  object Conexao: TFDConnection
+    Params.Strings = (
+      'Database=estoque'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 488
+    Top = 32
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\wamp\bin\mysql\mysql5.7.40\lib\libmysql.dll'
+    Left = 344
+    Top = 32
+  end
+  object tbProdutos: TFDTable
+    Active = True
+    IndexFieldNames = 'id'
+    Connection = Conexao
+    TableName = 'estoque.produtos'
+    Left = 312
+    Top = 128
+    object tbProdutosid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbProdutosnome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Required = True
+      Size = 100
+    end
+    object tbProdutosfabricante: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'fabricante'
+      Origin = 'fabricante'
+      Required = True
+      Size = 50
+    end
+    object tbProdutosvalidade: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'validade'
+      Origin = 'validade'
+      Required = True
+      EditMask = '##/##/####'
+    end
+    object tbProdutosestoqueAtual: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'estoqueAtual'
+      Origin = 'estoqueAtual'
+    end
+  end
+  object tbMovimentacoes: TFDTable
+    Active = True
+    BeforeDelete = tbMovimentacoesBeforeDelete
+    IndexFieldNames = 'id'
+    Connection = Conexao
+    TableName = 'movimentacoes'
+    Left = 424
+    Top = 128
+  end
+  object tbMovProdutos: TFDTable
+    Active = True
+    AfterPost = tbMovProdutosAfterPost
+    BeforeDelete = tbMovProdutosBeforeDelete
+    AfterDelete = tbMovProdutosAfterDelete
+    AfterScroll = tbMovProdutosAfterScroll
+    IndexFieldNames = 'id'
+    MasterSource = dsMovimentacoes
+    MasterFields = 'id'
+    Connection = Conexao
+    TableName = 'estoque.movimentacoes_produtos'
+    Left = 552
+    Top = 128
+    object tbMovProdutosid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ReadOnly = True
+    end
+    object tbMovProdutosidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object tbMovProdutosidMovimentacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idMovimentacao'
+      Origin = 'idMovimentacao'
+    end
+    object tbMovProdutosqtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object tbMovProdutosnomeProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 80
+      Lookup = True
+    end
+  end
+  object dsMovimentacoes: TDataSource
+    DataSet = tbMovimentacoes
+    Left = 424
+    Top = 232
+  end
+  object dsMovProdutos: TDataSource
+    DataSet = tbMovProdutos
+    Left = 552
+    Top = 232
+  end
+  object sqlMovimentacoes: TFDQuery
+    Active = True
+    Connection = Conexao
+    SQL.Strings = (
+      'select * from movimentacoes')
+    Left = 344
+    Top = 352
+    ParamData = <
+      item
+        Name = 'pDataInicial'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pDataFinal'
+        ParamType = ptInput
+      end>
+  end
+  object dsSqlMovimentacoes: TDataSource
+    DataSet = sqlMovimentacoes
+    Left = 496
+    Top = 352
+  end
+  object sqlAumentaEstoque: TFDCommand
+    Connection = Conexao
+    CommandText.Strings = (
+      
+        'update produtos set estoqueAtual = estoqueAtual + :pQtd where id' +
+        ' = :pId')
+    ParamData = <
+      item
+        Name = 'pQtd'
+        ParamType = ptInput
+        Value = Null
+      end
+      item
+        Name = 'pId'
+        ParamType = ptInput
+      end>
+    Left = 120
+    Top = 136
+  end
+  object sqlDiminuiEstoque: TFDCommand
+    Connection = Conexao
+    CommandText.Strings = (
+      
+        'update produtos set estoqueAtual = estoqueAtual - :pQtd where id' +
+        ' = :pId')
+    ParamData = <
+      item
+        Name = 'pId'
+        ParamType = ptInput
+      end
+      item
+        Name = 'pQtd'
+        ParamType = ptInput
+        Value = Null
+      end>
+    Left = 120
+    Top = 240
+  end
+  object sqlMovProdutos: TFDQuery
+    Active = True
+    IndexFieldNames = 'idMovimentacao'
+    MasterSource = dsSqlMovimentacoes
+    MasterFields = 'id'
+    Connection = Conexao
+    SQL.Strings = (
+      'select * from movimentacoes_produtos')
+    Left = 344
+    Top = 456
+    object sqlMovProdutosid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object sqlMovProdutosidProduto: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idProduto'
+      Origin = 'idProduto'
+    end
+    object sqlMovProdutosidMovimentacao: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idMovimentacao'
+      Origin = 'idMovimentacao'
+    end
+    object sqlMovProdutosqtd: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'qtd'
+      Origin = 'qtd'
+    end
+    object sqlMovProdutosnomeProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'nomeProduto'
+      LookupDataSet = tbProdutos
+      LookupKeyFields = 'id'
+      LookupResultField = 'nome'
+      KeyFields = 'idProduto'
+      Size = 50
+      Lookup = True
+    end
+  end
+  object dsSqlMovProdutos: TDataSource
+    DataSet = sqlMovProdutos
+    Left = 496
+    Top = 456
+  end
+end
