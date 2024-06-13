@@ -1,9 +1,10 @@
 object formSacar: TformSacar
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'formSacar'
-  ClientHeight = 419
-  ClientWidth = 640
+  ClientHeight = 365
+  ClientWidth = 480
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,8 +14,8 @@ object formSacar: TformSacar
   OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
-    Left = 188
-    Top = 187
+    Left = 100
+    Top = 163
     Width = 45
     Height = 28
     Caption = 'Valor'
@@ -26,8 +27,8 @@ object formSacar: TformSacar
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 188
-    Top = 139
+    Left = 100
+    Top = 115
     Width = 54
     Height = 28
     Caption = 'Saldo:'
@@ -39,8 +40,8 @@ object formSacar: TformSacar
     ParentFont = False
   end
   object lblSaldo: TLabel
-    Left = 364
-    Top = 139
+    Left = 276
+    Top = 115
     Width = 11
     Height = 28
     Caption = '0'
@@ -52,8 +53,8 @@ object formSacar: TformSacar
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 168
-    Top = 43
+    Left = 80
+    Top = 35
     Width = 325
     Height = 37
     Caption = 'Sacar/Depositar Dinheiro'
@@ -65,17 +66,16 @@ object formSacar: TformSacar
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 216
-    Top = 264
+    Left = 128
+    Top = 240
     Width = 3
     Height = 15
   end
   object lblMsg: TLabel
-    Left = 168
-    Top = 344
-    Width = 12
+    Left = 92
+    Top = 312
+    Width = 5
     Height = 28
-    Caption = '...'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
@@ -84,8 +84,8 @@ object formSacar: TformSacar
     ParentFont = False
   end
   object btnSacar: TButton
-    Left = 204
-    Top = 256
+    Left = 116
+    Top = 232
     Width = 97
     Height = 41
     Caption = 'Sacar'
@@ -99,8 +99,8 @@ object formSacar: TformSacar
     OnClick = btnSacarClick
   end
   object btnDepositar: TButton
-    Left = 360
-    Top = 256
+    Left = 272
+    Top = 232
     Width = 99
     Height = 41
     Caption = 'Depositar'
@@ -114,8 +114,8 @@ object formSacar: TformSacar
     OnClick = btnDepositarClick
   end
   object txtValor: TNumberBox
-    Left = 280
-    Top = 184
+    Left = 192
+    Top = 160
     Width = 201
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -126,5 +126,12 @@ object formSacar: TformSacar
     Mode = nbmFloat
     ParentFont = False
     TabOrder = 2
+  end
+  object Panel1: TPanel
+    Left = 72
+    Top = 31
+    Width = 345
+    Height = 50
+    TabOrder = 3
   end
 end

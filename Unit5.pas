@@ -16,7 +16,13 @@ type
     Conexao: TFDConnection;
     tbCadastro: TFDTable;
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
-    tbCadastrocpf: TIntegerField;
+    qCadastroTeste: TFDQuery;
+    qDadosBancarios: TFDQuery;
+    dsDadosBancarios: TDataSource;
+    dsExtrato: TDataSource;
+    qExtrato: TFDQuery;
+    dsCadastroTB: TDataSource;
+    tbCadastrocpf: TStringField;
     tbCadastronome: TStringField;
     tbCadastrosobrenome: TStringField;
     tbCadastroemail: TStringField;
@@ -25,11 +31,19 @@ type
     tbCadastrotelefone: TStringField;
     tbCadastrocelular: TStringField;
     tbCadastrosenha: TStringField;
+    qCadastroTestecpf: TStringField;
+    qCadastroTestenome: TStringField;
+    qCadastroTestesobrenome: TStringField;
+    qCadastroTesteemail: TStringField;
+    qCadastroTestesexo: TStringField;
+    qCadastroTestedataNascimento: TDateField;
+    qCadastroTestetelefone: TStringField;
+    qCadastroTestecelular: TStringField;
+    qCadastroTestecartao: TStringField;
+    qCadastroTestesenha: TStringField;
     qCadastro: TFDQuery;
-    qDadosBancarios: TFDQuery;
-    dsDadosBancarios: TDataSource;
-    dsExtrato: TDataSource;
-    qExtrato: TFDQuery;
+    procedure tbCadastroAfterPost(DataSet: TDataSet);
+    procedure tbCadastroBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -38,13 +52,49 @@ type
 
 var
   DM: TDM;
+  erro: integer;
 
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
 
-uses telaTeste;
+uses telaTeste, unitEditarPerfil;
 
 {$R *.dfm}
+
+
+
+
+procedure TDM.tbCadastroAfterPost(DataSet: TDataSet);
+begin
+  if erro = 0 then
+  begin
+    formEditarPerfil.lblMsg2.Caption := 'Alterações feitas com sucesso';
+  end;
+end;
+
+procedure TDM.tbCadastroBeforePost(DataSet: TDataSet);
+begin
+if formEditarPerfil.txtSenha.Text <> formEditarPerfil.txtConfirSenha.Text then
+begin
+  formEditarPerfil.lblMsg.Caption := 'As senhas inseridas são diferentes';
+  erro := erro + 1;
+  exit;
+end
+ else
+  if DM.qCadastro.FieldByName('celular').AsString = formEditarPerfil.txtCelular.Text then
+  begin
+    formEditarPerfil.lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse número de celular';
+    erro := erro + 1;
+    exit;
+  end
+  else
+  if DM.qCadastro.FieldByName('email').AsString = formEditarPerfil.txtEmail.Text then
+  begin
+    formEditarPerfil.lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse e-mail';
+    erro := erro + 1;
+    exit;
+  end
+end;
 
 end.

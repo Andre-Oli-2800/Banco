@@ -5,14 +5,14 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.StdCtrls, Vcl.Grids,
-  Vcl.DBGrids, System.Win.ComObj, Vcl.ComCtrls;
+  Vcl.DBGrids, System.Win.ComObj, Vcl.ComCtrls, Vcl.ExtCtrls;
 
 type
   TformExtratoConta = class(TForm)
     gridExtrato: TDBGrid;
     btnExportar: TButton;
     Label1: TLabel;
-    barraProgresso: TProgressBar;
+    Panel1: TPanel;
     procedure FormShow(Sender: TObject);
     procedure btnExportarClick(Sender: TObject);
   private
@@ -37,8 +37,6 @@ linha, contar: integer;
 begin
   DM.qExtrato.First;
   contar := DM.qExtrato.RecordCount;
-  barraProgresso.Max := contar;
-  barraProgresso.Position := 0;
   linha := 2;
 
   planilha := CreateOleObject('Excel.Application');
@@ -59,7 +57,6 @@ begin
       planilha.cells[linha,3] := DM.qExtrato.FieldByName('horario').AsString;
       linha := linha + 1;
       DM.qExtrato.Next;
-      barraProgresso.Position := barraProgresso.Position + 1;
     end;
     planilha.columns.autofit;
     planilha.visible := True;

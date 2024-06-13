@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.NumberBox, Vcl.Mask;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.NumberBox, Vcl.Mask,
+  Vcl.ExtCtrls;
 
 type
   TformTransferir = class(TForm)
@@ -18,6 +19,7 @@ type
     txtValor: TNumberBox;
     Label5: TLabel;
     txtCelular: TMaskEdit;
+    Panel1: TPanel;
     procedure btnTransferirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
@@ -33,7 +35,7 @@ implementation
 
 {$R *.dfm}
 
-uses Unit5;
+uses Unit5, formMenu;
 
 procedure TformTransferir.btnTransferirClick(Sender: TObject);
 var
@@ -63,46 +65,67 @@ begin
       saldo := DM.qDadosBancarios.fieldbyName('saldo').asFloat;
       saldo := saldo - StrToFloat(txtValor.Text);
 
-      DM.qDadosBancarios.Close;
-      DM.qDadosBancarios.SQL.Clear;
-      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldo)+' where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
-      DM.qDadosBancarios.ExecSQL;
 
 
       DM.qDadosBancarios.SQL.Clear;
       DM.qDadosBancarios.SQL.Add('Select saldo from dadosBancarios where celular = '+quotedStr(txtCelular.Text));
       DM.qDadosBancarios.Open;
 
-      saldoOutraConta := DM.qDadosBancarios.fieldbyName('saldo').asFloat;
-      saldoOutraConta := saldoOutraConta + StrToFloat(txtValor.Text);
+      if DM.qDadosBancarios.RecordCount = 0 then
+      begin
+        lblMsg.Font.Color := clRed;
+        lblMsg.Caption := 'Não existe cliente com esse número de telefone';
+        exit;
+      end
+      else
+      begin
+        DM.qDadosBancarios.Close;
+        DM.qDadosBancarios.SQL.Clear;
+        DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldo)+' where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+        DM.qDadosBancarios.ExecSQL;
 
-      DM.qDadosBancarios.SQL.Clear;
-      DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldoOutraConta)+' where celular = '+quotedStr(txtCelular.Text));
-      DM.qDadosBancarios.ExecSQL;
 
-      lblMsg.Font.Color := clGreen;
-      lblMsg.Caption := 'Dinheiro transferido com sucesso';
+        DM.qDadosBancarios.SQL.Clear;
+        DM.qDadosBancarios.SQL.Add('Select saldo from dadosBancarios where celular = '+quotedStr(txtCelular.Text));
+        DM.qDadosBancarios.Open;
 
-      DM.qExtrato.Close;
-      DM.qExtrato.SQL.Clear;
-      DM.qExtrato.SQL.Add('Insert into Extrato (processo,valor,horario,cpf)');
-      DM.qExtrato.SQL.Add('Values (''Transferido'','+quotedStr(txtValor.Text)+',:pHorario,'''+cpf+''')');
+        saldoOutraConta := DM.qDadosBancarios.fieldbyName('saldo').asFloat;
+        saldoOutraConta := saldoOutraConta + StrToFloat(txtValor.Text);
 
-      DM.qExtrato.ParamByName('pHorario').Value := FormatDateTime('YYYY-MM-DD HH:MM:SS',now);
+        DM.qDadosBancarios.SQL.Clear;
+        DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldoOutraConta)+' where celular = '+quotedStr(txtCelular.Text));
+        DM.qDadosBancarios.ExecSQL;
 
-      DM.qExtrato.ExecSQL;
+        lblMsg.Font.Color := clGreen;
+        lblMsg.Caption := 'Dinheiro transferido com sucesso';
+
+        DM.qExtrato.Close;
+        DM.qExtrato.SQL.Clear;
+        DM.qExtrato.SQL.Add('Insert into Extrato (processo,valor,horario,cpf)');
+        DM.qExtrato.SQL.Add('Values (''Transferido'','+quotedStr(txtValor.Text)+',:pHorario,'''+cpf+''')');
+
+        DM.qExtrato.ParamByName('pHorario').Value := FormatDateTime('YYYY-MM-DD HH:MM:SS',now);
+
+        DM.qExtrato.ExecSQL;
+
+        DM.qDadosBancarios.Close;
+        DM.qDadosBancarios.SQL.Clear;
+        DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+        DM.qDadosBancarios.Open;
+        lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+        formMenuInicial.lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+        formMenuInicial.Refresh;
+      end;
     end;
   end;
-
 end;
 
 procedure TformTransferir.FormShow(Sender: TObject);
 begin
-  DM.qDadosBancarios.Close;
-  DM.qDadosBancarios.SQL.Clear;
-  DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
-  DM.qDadosBancarios.Open;
+  //DM.qDadosBancarios.Close;
+  //DM.qDadosBancarios.SQL.Clear;
+  //DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+  //DM.qDadosBancarios.Open;
   lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
 end;
-
 end.

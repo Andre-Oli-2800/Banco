@@ -4,10 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.NumberBox;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.NumberBox,
+  Vcl.ExtCtrls;
 
 type
   TformSacar = class(TForm)
+
     Label1: TLabel;
     btnSacar: TButton;
     Label4: TLabel;
@@ -17,6 +19,7 @@ type
     lblMsg: TLabel;
     btnDepositar: TButton;
     txtValor: TNumberBox;
+    Panel1: TPanel;
     procedure btnSacarClick(Sender: TObject);
     procedure btnDepositarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -33,7 +36,7 @@ implementation
 
 {$R *.dfm}
 
-uses Unit5;
+uses Unit5, formMenu;
 
 procedure TformSacar.btnDepositarClick(Sender: TObject);
 var
@@ -69,6 +72,14 @@ begin
     DM.qExtrato.SQL.Add('Values (''Depositado'','+quotedStr(txtValor.Text)+',:pHorario,'''+cpf+''')');
     DM.qExtrato.ParamByName('pHorario').Value := FormatDateTime('YYYY-MM-DD HH:MM:SS',now);
     DM.qExtrato.ExecSQL;
+
+    DM.qDadosBancarios.Close;
+    DM.qDadosBancarios.SQL.Clear;
+    DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+    DM.qDadosBancarios.Open;
+    lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+    formMenuInicial.lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+    formMenuInicial.Refresh;
   end;
   end;
 
@@ -79,13 +90,12 @@ saldo: Real;
 begin
   DM.qDAdosBancarios.Close;
   DM.qDadosBancarios.SQL.CLear;
-  //DM.qDadosBancarios.SQL.Add('Select cpf,saldo from dadosBancarios where conta = '+quotedStr(txtConta.text)+' and agencia = '+quotedStr(txtAgencia.text));
   DM.qDadosBancarios.SQL.Add('Select cpf,saldo from dadosBancarios where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
   DM.qDadosBancarios.Open;
   if StrtoFloat(txtValor.Text) = 0 then
   begin
     lblMsg.Font.Color := clRed;
-    lblMsg.Caption := 'Insera um valor';
+    lblMsg.Caption := 'Insira um valor';
   end
   else
   begin
@@ -102,7 +112,6 @@ begin
       DM.qDadosBancarios.Open;
 
       DM.qDadosBancarios.SQL.Clear;
-      //DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+IntToStr(saldo)+' where agencia = '+txtAgencia.Text+' and conta = '+txtConta.Text);
       DM.qDadosBancarios.SQL.Add('update dadosBancarios set saldo = '+FloatToStr(saldo)+' where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
       DM.qDadosBancarios.ExecSQL;
       lblMsg.Font.Color := clGreen;
@@ -114,6 +123,14 @@ begin
       DM.qExtrato.SQL.Add('Values (''Sacado'','+quotedStr(txtValor.Text)+',:pHorario,'''+cpf+''')');
       DM.qExtrato.ParamByName('pHorario').Value := FormatDateTime('YYYY-MM-DD HH:MM:SS',now);
       DM.qExtrato.ExecSQL;
+
+      DM.qDadosBancarios.Close;
+      DM.qDadosBancarios.SQL.Clear;
+      DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+      DM.qDadosBancarios.Open;
+      lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+      formMenuInicial.lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
+      formMenuInicial.Refresh;
     end;
   end;
 end;
@@ -122,10 +139,10 @@ end;
 
 procedure TformSacar.FormShow(Sender: TObject);
 begin
-DM.qDadosBancarios.Close;
-DM.qDadosBancarios.SQL.Clear;
-DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
-DM.qDadosBancarios.Open;
+//DM.qDadosBancarios.Close;
+//DM.qDadosBancarios.SQL.Clear;
+//DM.qDadosBancarios.SQL.Add('select saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+//DM.qDadosBancarios.Open;
 lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
 end;
 

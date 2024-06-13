@@ -1,8 +1,9 @@
 object formExtratoConta: TformExtratoConta
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'formExtratoConta'
-  ClientHeight = 442
+  ClientHeight = 435
   ClientWidth = 628
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -27,7 +28,7 @@ object formExtratoConta: TformExtratoConta
   end
   object gridExtrato: TDBGrid
     Left = 8
-    Top = 64
+    Top = 80
     Width = 612
     Height = 257
     DataSource = DM.dsExtrato
@@ -48,25 +49,33 @@ object formExtratoConta: TformExtratoConta
       item
         Expanded = False
         FieldName = 'processo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        Title.Caption = 'Processo'
         Width = 154
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'valor'
+        Title.Caption = 'Valor'
         Width = 183
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'horario'
+        Title.Caption = 'Hor'#225'rio'
         Width = 359
         Visible = True
       end>
   end
   object btnExportar: TButton
-    Left = 280
-    Top = 384
+    Left = 264
+    Top = 360
     Width = 105
     Height = 41
     Caption = 'Exportar'
@@ -79,11 +88,11 @@ object formExtratoConta: TformExtratoConta
     TabOrder = 1
     OnClick = btnExportarClick
   end
-  object barraProgresso: TProgressBar
-    Left = 96
-    Top = 341
-    Width = 465
-    Height = 21
+  object Panel1: TPanel
+    Left = 248
+    Top = 17
+    Width = 121
+    Height = 41
     TabOrder = 2
   end
 end

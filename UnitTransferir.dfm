@@ -1,9 +1,10 @@
 object formTransferir: TformTransferir
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'formTransferir'
   ClientHeight = 476
-  ClientWidth = 630
+  ClientWidth = 435
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,7 +14,7 @@ object formTransferir: TformTransferir
   OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
-    Left = 188
+    Left = 92
     Top = 195
     Width = 45
     Height = 28
@@ -26,7 +27,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 188
+    Left = 92
     Top = 139
     Width = 54
     Height = 28
@@ -39,7 +40,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object lblSaldo: TLabel
-    Left = 438
+    Left = 270
     Top = 139
     Width = 11
     Height = 28
@@ -52,7 +53,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 216
+    Left = 104
     Top = 51
     Width = 241
     Height = 37
@@ -65,17 +66,16 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 216
+    Left = 120
     Top = 264
     Width = 3
     Height = 15
   end
   object lblMsg: TLabel
-    Left = 188
+    Left = 140
     Top = 414
-    Width = 12
+    Width = 5
     Height = 28
-    Caption = '...'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
@@ -84,7 +84,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 188
+    Left = 92
     Top = 259
     Width = 60
     Height = 28
@@ -97,7 +97,7 @@ object formTransferir: TformTransferir
     ParentFont = False
   end
   object btnTransferir: TButton
-    Left = 280
+    Left = 168
     Top = 337
     Width = 121
     Height = 41
@@ -112,7 +112,7 @@ object formTransferir: TformTransferir
     OnClick = btnTransferirClick
   end
   object txtValor: TNumberBox
-    Left = 280
+    Left = 184
     Top = 192
     Width = 169
     Height = 36
@@ -126,7 +126,7 @@ object formTransferir: TformTransferir
     TabOrder = 1
   end
   object txtCelular: TMaskEdit
-    Left = 280
+    Left = 184
     Top = 256
     Width = 169
     Height = 36
@@ -140,5 +140,12 @@ object formTransferir: TformTransferir
     ParentFont = False
     TabOrder = 2
     Text = '(  )     -    '
+  end
+  object Panel1: TPanel
+    Left = 92
+    Top = 51
+    Width = 261
+    Height = 40
+    TabOrder = 3
   end
 end

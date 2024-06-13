@@ -1,9 +1,10 @@
 object formCadastro: TformCadastro
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'formCadastro'
-  ClientHeight = 556
-  ClientWidth = 751
+  ClientHeight = 549
+  ClientWidth = 720
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,8 +13,8 @@ object formCadastro: TformCadastro
   Font.Style = []
   TextHeight = 37
   object Label1: TLabel
-    Left = 79
-    Top = 208
+    Left = 55
+    Top = 168
     Width = 54
     Height = 28
     Caption = 'Nome'
@@ -25,8 +26,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 305
-    Top = 88
+    Left = 315
+    Top = 48
     Width = 115
     Height = 37
     Caption = 'Cadastro'
@@ -38,8 +39,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label4: TLabel
-    Left = 80
-    Top = 250
+    Left = 56
+    Top = 210
     Width = 47
     Height = 28
     Caption = 'Email'
@@ -51,8 +52,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 352
-    Top = 166
+    Left = 328
+    Top = 126
     Width = 102
     Height = 28
     Caption = 'Sobrenome'
@@ -64,8 +65,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 79
-    Top = 332
+    Left = 55
+    Top = 292
     Width = 53
     Height = 28
     Caption = 'Senha'
@@ -77,8 +78,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 352
-    Top = 250
+    Left = 328
+    Top = 210
     Width = 60
     Height = 28
     Caption = 'Celular'
@@ -90,8 +91,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label8: TLabel
-    Left = 352
-    Top = 208
+    Left = 328
+    Top = 168
     Width = 5
     Height = 28
     Font.Charset = DEFAULT_CHARSET
@@ -102,8 +103,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label10: TLabel
-    Left = 352
-    Top = 333
+    Left = 328
+    Top = 293
     Width = 145
     Height = 28
     Caption = 'Confirmar Senha'
@@ -115,8 +116,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label9: TLabel
-    Left = 352
-    Top = 208
+    Left = 328
+    Top = 168
     Width = 42
     Height = 28
     Caption = 'Sexo'
@@ -128,8 +129,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 80
-    Top = 166
+    Left = 56
+    Top = 126
     Width = 33
     Height = 28
     Caption = 'CPF'
@@ -141,8 +142,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label11: TLabel
-    Left = 352
-    Top = 292
+    Left = 328
+    Top = 252
     Width = 177
     Height = 28
     Caption = 'Data de Nascimento'
@@ -154,8 +155,8 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object Label12: TLabel
-    Left = 80
-    Top = 292
+    Left = 56
+    Top = 252
     Width = 72
     Height = 28
     Caption = 'Telefone'
@@ -167,15 +168,33 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object lblMsg: TLabel
-    Left = 80
+    Left = 269
     Top = 479
-    Width = 18
-    Height = 37
-    Caption = '...'
+    Width = 5
+    Height = 28
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+  end
+  object Label13: TLabel
+    Left = 56
+    Top = 337
+    Width = 58
+    Height = 28
+    Caption = 'Cart'#227'o'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
   end
   object btnCadastrar: TButton
-    Left = 261
-    Top = 408
+    Left = 245
+    Top = 403
     Width = 99
     Height = 49
     Caption = 'Cadastrar'
@@ -189,8 +208,8 @@ object formCadastro: TformCadastro
     OnClick = btnCadastrarClick
   end
   object btnLogin: TButton
-    Left = 449
-    Top = 408
+    Left = 433
+    Top = 403
     Width = 97
     Height = 49
     Caption = 'Login'
@@ -204,8 +223,8 @@ object formCadastro: TformCadastro
     OnClick = btnLoginClick
   end
   object txtDataNascimento: TDateTimePicker
-    Left = 534
-    Top = 287
+    Left = 510
+    Top = 247
     Width = 165
     Height = 36
     Date = 36865.000000000000000000
@@ -221,8 +240,8 @@ object formCadastro: TformCadastro
     TabOrder = 2
   end
   object txtConfirSenha: TEdit
-    Left = 534
-    Top = 329
+    Left = 510
+    Top = 289
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -235,9 +254,9 @@ object formCadastro: TformCadastro
     TabOrder = 3
   end
   object txtCelular: TMaskEdit
-    Left = 534
-    Top = 247
-    Width = 164
+    Left = 510
+    Top = 207
+    Width = 165
     Height = 36
     EditMask = '(##)#####-####;1;_'
     Font.Charset = DEFAULT_CHARSET
@@ -251,8 +270,8 @@ object formCadastro: TformCadastro
     Text = '(  )     -    '
   end
   object txtTelefone: TMaskEdit
-    Left = 163
-    Top = 290
+    Left = 139
+    Top = 250
     Width = 165
     Height = 36
     EditMask = '(##)####-####;1;_'
@@ -267,8 +286,8 @@ object formCadastro: TformCadastro
     Text = '(  )    -    '
   end
   object txtCpf: TMaskEdit
-    Left = 163
-    Top = 163
+    Left = 139
+    Top = 123
     Width = 165
     Height = 36
     EditMask = '###.###.###/##;1;_'
@@ -283,8 +302,8 @@ object formCadastro: TformCadastro
     Text = '   .   .   /  '
   end
   object txtSenha: TEdit
-    Left = 163
-    Top = 332
+    Left = 139
+    Top = 292
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -297,8 +316,8 @@ object formCadastro: TformCadastro
     TabOrder = 7
   end
   object txtNome: TEdit
-    Left = 163
-    Top = 205
+    Left = 139
+    Top = 165
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -310,8 +329,8 @@ object formCadastro: TformCadastro
     TabOrder = 8
   end
   object cbSexo: TComboBox
-    Left = 534
-    Top = 205
+    Left = 510
+    Top = 165
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -327,8 +346,8 @@ object formCadastro: TformCadastro
       'Outro')
   end
   object txtEmail: TEdit
-    Left = 163
-    Top = 247
+    Left = 139
+    Top = 207
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -340,8 +359,8 @@ object formCadastro: TformCadastro
     TabOrder = 10
   end
   object txtSobrenome: TEdit
-    Left = 534
-    Top = 163
+    Left = 510
+    Top = 123
     Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
@@ -352,10 +371,10 @@ object formCadastro: TformCadastro
     ParentFont = False
     TabOrder = 11
   end
-  object ComboBox1: TComboBox
-    Left = 16
-    Top = 28
-    Width = 145
+  object cbCartao: TComboBox
+    Left = 139
+    Top = 334
+    Width = 165
     Height = 36
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -364,17 +383,19 @@ object formCadastro: TformCadastro
     Font.Style = []
     ParentFont = False
     TabOrder = 12
-    Text = 'ComboBox1'
     Items.Strings = (
       'Bradesco'
       'Caixa'
-      'Nube'
+      'Nubank'
       'Banco do Brasil'
       'Ita'#250
       'Santander')
   end
-  object Timer1: TTimer
-    Left = 648
-    Top = 496
+  object Panel1: TPanel
+    Left = 296
+    Top = 48
+    Width = 153
+    Height = 39
+    TabOrder = 13
   end
 end

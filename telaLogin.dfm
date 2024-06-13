@@ -1,9 +1,10 @@
 object formLogin: TformLogin
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'telaLogin'
-  ClientHeight = 442
-  ClientWidth = 628
+  ClientHeight = 433
+  ClientWidth = 420
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,8 +13,8 @@ object formLogin: TformLogin
   Font.Style = []
   TextHeight = 15
   object Label2: TLabel
-    Left = 267
-    Top = 56
+    Left = 163
+    Top = 48
     Width = 72
     Height = 37
     Caption = 'Login'
@@ -25,7 +26,7 @@ object formLogin: TformLogin
     ParentFont = False
   end
   object Label5: TLabel
-    Left = 176
+    Left = 72
     Top = 134
     Width = 47
     Height = 28
@@ -38,7 +39,7 @@ object formLogin: TformLogin
     ParentFont = False
   end
   object Label10: TLabel
-    Left = 176
+    Left = 72
     Top = 201
     Width = 53
     Height = 28
@@ -51,12 +52,10 @@ object formLogin: TformLogin
     ParentFont = False
   end
   object lblMsg: TLabel
-    Left = 176
+    Left = 80
     Top = 369
-    Width = 12
+    Width = 5
     Height = 28
-    Caption = '...'
-    Enabled = False
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
@@ -65,7 +64,7 @@ object formLogin: TformLogin
     ParentFont = False
   end
   object btnLogin: TButton
-    Left = 186
+    Left = 72
     Top = 280
     Width = 97
     Height = 49
@@ -80,7 +79,7 @@ object formLogin: TformLogin
     OnClick = btnLoginClick
   end
   object btnCadastrar: TButton
-    Left = 353
+    Left = 239
     Top = 280
     Width = 97
     Height = 49
@@ -96,7 +95,7 @@ object formLogin: TformLogin
     OnClick = btnCadastrarClick
   end
   object txtEmail: TEdit
-    Left = 256
+    Left = 152
     Top = 131
     Width = 185
     Height = 36
@@ -109,7 +108,7 @@ object formLogin: TformLogin
     TabOrder = 2
   end
   object txtSenha: TEdit
-    Left = 256
+    Left = 152
     Top = 201
     Width = 185
     Height = 36
@@ -121,5 +120,12 @@ object formLogin: TformLogin
     ParentFont = False
     PasswordChar = '*'
     TabOrder = 3
+  end
+  object Panel1: TPanel
+    Left = 144
+    Top = 48
+    Width = 113
+    Height = 40
+    TabOrder = 4
   end
 end

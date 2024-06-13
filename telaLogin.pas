@@ -17,6 +17,7 @@ type
     lblMsg: TLabel;
     txtEmail: TEdit;
     txtSenha: TEdit;
+    Panel1: TPanel;
     procedure btnCadastrarClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
   private
@@ -54,7 +55,10 @@ begin
     DM.qCadastro.Open;
     if DM.qCadastro.RecordCount > 0 then
     begin
-      formMenuInicial.showModal;
+       lblMsg.Caption := '';
+       formMenuInicial.showModal;
+       formLogin.Close;
+
     end
     else
     begin

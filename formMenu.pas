@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.StdCtrls, Vcl.ExtCtrls;
 
 type
   TformMenuInicial = class(TForm)
@@ -23,10 +23,18 @@ type
     lblConta: TLabel;
     Label6: TLabel;
     Label7: TLabel;
+    EditarPerfil1: TMenuItem;
+    Panel1: TPanel;
+    Panel2: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Panel6: TPanel;
     procedure Sacar2Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure Extrato2Click(Sender: TObject);
     procedure Extrato1Click(Sender: TObject);
+    procedure EditarPerfil1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -40,7 +48,14 @@ implementation
 
 {$R *.dfm}
 
-uses Unit5, unitSacar, formExtrato, UnitTransferir;
+uses Unit5, unitSacar, formExtrato, UnitTransferir, unitEditarPerfil;
+
+
+
+procedure TformMenuInicial.EditarPerfil1Click(Sender: TObject);
+begin
+formEditarPerfil.showModal;
+end;
 
 procedure TformMenuInicial.Extrato1Click(Sender: TObject);
 begin

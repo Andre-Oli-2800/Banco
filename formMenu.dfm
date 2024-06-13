@@ -1,9 +1,10 @@
 object formMenuInicial: TformMenuInicial
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'formMenuInicial'
-  ClientHeight = 442
-  ClientWidth = 628
+  ClientHeight = 399
+  ClientWidth = 492
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,8 +15,8 @@ object formMenuInicial: TformMenuInicial
   OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
-    Left = 200
-    Top = 29
+    Left = 160
+    Top = 32
     Width = 157
     Height = 37
     Caption = 'Menu Inicial'
@@ -27,8 +28,8 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object Label2: TLabel
-    Left = 179
-    Top = 104
+    Left = 139
+    Top = 112
     Width = 144
     Height = 28
     Caption = 'Seja bem vindo, '
@@ -40,7 +41,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 216
+    Left = 160
     Top = 176
     Width = 54
     Height = 28
@@ -53,7 +54,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object lblSaldo: TLabel
-    Left = 336
+    Left = 280
     Top = 176
     Width = 11
     Height = 28
@@ -66,8 +67,8 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object lblNome: TLabel
-    Left = 329
-    Top = 104
+    Left = 281
+    Top = 112
     Width = 54
     Height = 28
     Caption = 'Nome'
@@ -79,7 +80,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object lblAgencia: TLabel
-    Left = 336
+    Left = 280
     Top = 304
     Width = 11
     Height = 28
@@ -92,7 +93,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object lblConta: TLabel
-    Left = 336
+    Left = 280
     Top = 240
     Width = 11
     Height = 28
@@ -105,7 +106,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object Label6: TLabel
-    Left = 216
+    Left = 160
     Top = 304
     Width = 74
     Height = 28
@@ -118,7 +119,7 @@ object formMenuInicial: TformMenuInicial
     ParentFont = False
   end
   object Label7: TLabel
-    Left = 216
+    Left = 160
     Top = 240
     Width = 56
     Height = 28
@@ -130,11 +131,57 @@ object formMenuInicial: TformMenuInicial
     Font.Style = []
     ParentFont = False
   end
+  object Panel1: TPanel
+    Left = 139
+    Top = 32
+    Width = 196
+    Height = 37
+    TabOrder = 0
+  end
+  object Panel2: TPanel
+    Left = 104
+    Top = 104
+    Width = 273
+    Height = 241
+    TabOrder = 1
+    object Panel3: TPanel
+      Left = 35
+      Top = 72
+      Width = 206
+      Height = 30
+      TabOrder = 0
+    end
+    object Panel4: TPanel
+      Left = 35
+      Top = 136
+      Width = 206
+      Height = 33
+      TabOrder = 1
+    end
+    object Panel5: TPanel
+      Left = 35
+      Top = 200
+      Width = 206
+      Height = 33
+      TabOrder = 2
+    end
+    object Panel6: TPanel
+      Left = 24
+      Top = 6
+      Width = 225
+      Height = 35
+      TabOrder = 3
+    end
+  end
   object MainMenu1: TMainMenu
     Left = 32
     Top = 24
     object Sacar1: TMenuItem
       Caption = 'Op'#231#245'es'
+      object EditarPerfil1: TMenuItem
+        Caption = 'Editar Perfil'
+        OnClick = EditarPerfil1Click
+      end
       object Sacar2: TMenuItem
         Caption = 'Sacar/Depositar'
         OnClick = Sacar2Click

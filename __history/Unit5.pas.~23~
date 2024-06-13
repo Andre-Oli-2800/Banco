@@ -1,0 +1,87 @@
+unit Unit5;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
+  FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf,
+  FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Phys, FireDAC.VCLUI.Wait,
+  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef;
+
+type
+  TDM = class(TDataModule)
+    dsCadastro: TDataSource;
+    Conexao: TFDConnection;
+    tbCadastro: TFDTable;
+    FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
+    qCadastro: TFDQuery;
+    qDadosBancarios: TFDQuery;
+    dsDadosBancarios: TDataSource;
+    dsExtrato: TDataSource;
+    qExtrato: TFDQuery;
+    dsCadastroTB: TDataSource;
+    tbCadastrocpf: TStringField;
+    tbCadastronome: TStringField;
+    tbCadastrosobrenome: TStringField;
+    tbCadastroemail: TStringField;
+    tbCadastrosexo: TStringField;
+    tbCadastrodataNascimento: TDateField;
+    tbCadastrotelefone: TStringField;
+    tbCadastrocelular: TStringField;
+    tbCadastrosenha: TStringField;
+    procedure tbCadastroAfterPost(DataSet: TDataSet);
+    procedure tbCadastroBeforePost(DataSet: TDataSet);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  DM: TDM;
+  erro: integer;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+uses telaTeste, unitEditarPerfil;
+
+{$R *.dfm}
+
+procedure TDM.tbCadastroAfterPost(DataSet: TDataSet);
+begin
+  if erro = 0 then
+  begin
+    formEditarPerfil.lblMsg2.Caption := 'Alterações feitas com sucesso';
+  end;
+end;
+
+procedure TDM.tbCadastroBeforePost(DataSet: TDataSet);
+begin
+if formEditarPerfil.txtSenha.Text <> formEditarPerfil.txtConfirSenha.Text then
+begin
+  //formEditarPerfil.lblMsg.StyleElements := formEditarPerfil.lblMsg.StyleElements -[seFont];
+  formEditarPerfil.lblMsg.Caption := 'As senhas inseridas são diferentes';
+  erro := erro + 1;
+  exit;
+end
+ else
+  if DM.qCadastro.FieldByName('celular').AsString = formEditarPerfil.txtCelular.Text then
+  begin
+    formEditarPerfil.lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse número de celular';
+    erro := erro + 1;
+    exit;
+  end
+  else
+  if DM.qCadastro.FieldByName('email').AsString = formEditarPerfil.txtEmail.Text then
+  begin
+    formEditarPerfil.lblMsg.Caption := 'Já existe uma pessoa cadastrada com esse e-mail';
+    erro := erro + 1;
+    exit;
+  end
+end;
+
+end.
