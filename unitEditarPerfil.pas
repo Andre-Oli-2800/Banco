@@ -24,20 +24,21 @@ type
     lblMsg: TLabel;
     txtConfirSenha: TEdit;
     Label13: TLabel;
-    cbSexo: TDBComboBox;
-    txtCpf: TDBEdit;
-    txtTelefone: TDBEdit;
-    txtSobrenome: TDBEdit;
-    txtDataNascimento: TDBEdit;
-    txtNome: TDBEdit;
-    txtEmail: TDBEdit;
-    txtSenha: TDBEdit;
     lblMsg2: TLabel;
     btnCadastrar: TButton;
-    cbCartao: TDBComboBox;
     Panel1: TPanel;
-    txtCelular: TDBEdit;
+    txtDataNasc: TDateTimePicker;
+    txtEmail: TEdit;
+    txtTelefone: TEdit;
+    txtCelular: TEdit;
+    txtNome: TEdit;
+    txtSenha: TEdit;
+    txtSobrenome: TEdit;
+    cbSexo: TComboBox;
+    cbCartao: TComboBox;
+    txtCpf: TDBEdit;
     procedure btnCadastrarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -46,7 +47,7 @@ type
 
 var
   formEditarPerfil: TformEditarPerfil;
-
+  cpf:String;
 implementation
 
 {$R *.dfm}
@@ -54,8 +55,10 @@ implementation
 uses Unit5;
 
 procedure TformEditarPerfil.btnCadastrarClick(Sender: TObject);
+var
+cpf: String;
 begin
-   if (txtCpf.Text = '') or (txtNome.Text = '') or (txtSobrenome.Text = '') or (txtEmail.Text = '') or (cbSexo.Text = '') or (txtTelefone.Text = '') or (txtCelular.Text = '') or (txtSenha.Text = '') or (txtConfirSenha.text = '') then
+  if (txtCpf.Text = '') or (txtNome.Text = '') or (txtSobrenome.Text = '') or (txtEmail.Text = '') or (cbSexo.Text = '') or (txtTelefone.Text = '') or (txtCelular.Text = '') or (txtSenha.Text = '') or (txtConfirSenha.text = '') then
   begin
     lblMsg.Font.Color := clRed;
     lblMsg.Caption := 'Preencha todos os campos';
@@ -68,15 +71,40 @@ begin
   end
   else
   begin
+    cpf := txtCpf.Text;
+
     DM.qCadastro.Close;
     DM.qCadastro.SQL.Clear;
     DM.qCadastro.SQL.Add('update Cadastro set nome = '+QuotedStr(txtNome.Text)+', sobrenome =  '+QuotedStr(txtSobrenome.Text)+', email = '+QuotedStr(txtEmail.Text)+' , sexo = '+QuotedStr(cbSexo.Text)+', dataNascimento = :pDataNascimento, telefone = '+QuotedStr(txtTelefone.Text)+', celular = '+QuotedStr(txtCelular.Text)+', cartao = '+QuotedStr(cbCartao.Text)+', senha = '+QuotedStr(txtSenha.Text)+'');
-    DM.qCadastro.SQL.Add('where cpf = '+QuotedStr(txtCpf.Text));
-    DM.qCadastro.ParamByName('pDataNascimento').Value := txtDataNascimento.Text;
+    DM.qCadastro.SQL.Add('where cpf = '+QuotedStr(cpf));
+    DM.qCadastro.ParamByName('pDataNascimento').Value := FormatDateTime('YYYY-MM-DD',txtDataNasc.Date);
     DM.qCadastro.ExecSQL;
+
+    DM.qCadastro.Close;
+    DM.qCadastro.SQL.Clear;
+    DM.qCadastro.SQL.Add('Select * from Cadastro where cpf = '+quotedStr(cpf));
+    DM.qCadastro.Open;
+    txtCpf.Text := DM.qCadastro.FieldByName('cpf').AsString;
+    txtNome.Text := DM.qCadastro.FieldByName('nome').AsString;
+
     lblMsg.Font.Color := clGreen;
     lblMsg.Caption := 'Perfil editado com sucesso';
     txtConfirSenha.Text := '';
+  end;
 end;
+procedure TformEditarPerfil.FormShow(Sender: TObject);
+begin
+
+txtNome.Text := DM.qCadastro.FieldByName('nome').AsString;
+txtSobrenome.Text := DM.qCadastro.FieldByName('Sobrenome').AsString;
+txtEmail.Text := DM.qCadastro.FieldByName('Email').AsString;
+txtSenha.Text := DM.qCadastro.FieldByName('Senha').AsString;
+txtTelefone.Text := DM.qCadastro.FieldByName('Telefone').AsString;
+txtCelular.Text := DM.qCadastro.FieldByName('Celular').AsString;
+cbSexo.Text := DM.qCadastro.FieldByName('Sexo').AsString;
+cbCartao.Text := DM.qCadastro.FieldByName('Cartao').AsString;
+
+txtDataNasc.Date := DM.qCadastro.FieldByName('dataNascimento').AsDateTime;
 end;
+
 end.

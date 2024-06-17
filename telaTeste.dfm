@@ -168,7 +168,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object lblMsg: TLabel
-    Left = 269
+    Left = 237
     Top = 479
     Width = 5
     Height = 28
@@ -193,7 +193,7 @@ object formCadastro: TformCadastro
     ParentFont = False
   end
   object btnCadastrar: TButton
-    Left = 245
+    Left = 315
     Top = 403
     Width = 99
     Height = 49
@@ -206,21 +206,6 @@ object formCadastro: TformCadastro
     ParentFont = False
     TabOrder = 0
     OnClick = btnCadastrarClick
-  end
-  object btnLogin: TButton
-    Left = 433
-    Top = 403
-    Width = 97
-    Height = 49
-    Caption = 'Login'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    OnClick = btnLoginClick
   end
   object txtDataNascimento: TDateTimePicker
     Left = 510
@@ -237,7 +222,7 @@ object formCadastro: TformCadastro
     MaxDate = 38718.999988425920000000
     MinDate = 2.000000000000000000
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 1
   end
   object txtConfirSenha: TEdit
     Left = 510
@@ -251,7 +236,7 @@ object formCadastro: TformCadastro
     Font.Style = []
     ParentFont = False
     PasswordChar = '*'
-    TabOrder = 3
+    TabOrder = 2
   end
   object txtCelular: TMaskEdit
     Left = 510
@@ -266,7 +251,7 @@ object formCadastro: TformCadastro
     Font.Style = []
     MaxLength = 14
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 3
     Text = '(  )     -    '
   end
   object txtTelefone: TMaskEdit
@@ -282,7 +267,7 @@ object formCadastro: TformCadastro
     Font.Style = []
     MaxLength = 13
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 4
     Text = '(  )    -    '
   end
   object txtCpf: TMaskEdit
@@ -298,7 +283,7 @@ object formCadastro: TformCadastro
     Font.Style = []
     MaxLength = 14
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 5
     Text = '   .   .   /  '
   end
   object txtSenha: TEdit
@@ -313,7 +298,7 @@ object formCadastro: TformCadastro
     Font.Style = []
     ParentFont = False
     PasswordChar = '*'
-    TabOrder = 7
+    TabOrder = 6
   end
   object txtNome: TEdit
     Left = 139
@@ -326,7 +311,7 @@ object formCadastro: TformCadastro
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 8
+    TabOrder = 7
   end
   object cbSexo: TComboBox
     Left = 510
@@ -339,7 +324,7 @@ object formCadastro: TformCadastro
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 9
+    TabOrder = 8
     Items.Strings = (
       'Masculino'
       'Feminino'
@@ -356,7 +341,7 @@ object formCadastro: TformCadastro
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 10
+    TabOrder = 9
   end
   object txtSobrenome: TEdit
     Left = 510
@@ -369,7 +354,7 @@ object formCadastro: TformCadastro
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 11
+    TabOrder = 10
   end
   object cbCartao: TComboBox
     Left = 139
@@ -382,7 +367,7 @@ object formCadastro: TformCadastro
     Font.Name = 'Segoe UI'
     Font.Style = []
     ParentFont = False
-    TabOrder = 12
+    TabOrder = 11
     Items.Strings = (
       'Bradesco'
       'Caixa'
@@ -396,6 +381,6 @@ object formCadastro: TformCadastro
     Top = 48
     Width = 153
     Height = 39
-    TabOrder = 13
+    TabOrder = 12
   end
 end

@@ -18,8 +18,8 @@ type
     txtEmail: TEdit;
     txtSenha: TEdit;
     Panel1: TPanel;
-    procedure btnCadastrarClick(Sender: TObject);
     procedure btnLoginClick(Sender: TObject);
+    procedure btnCadastrarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -37,7 +37,7 @@ uses telaTeste, Unit5, formMenu;
 
 procedure TformLogin.btnCadastrarClick(Sender: TObject);
 begin
-formCadastro.showModal;
+  formCadastro.ShowModal;
 end;
 
 procedure TformLogin.btnLoginClick(Sender: TObject);
@@ -57,8 +57,6 @@ begin
     begin
        lblMsg.Caption := '';
        formMenuInicial.showModal;
-       formLogin.Close;
-
     end
     else
     begin

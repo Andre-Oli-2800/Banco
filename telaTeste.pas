@@ -11,7 +11,6 @@ type
   TformCadastro = class(TForm)
     Label1: TLabel;
     btnCadastrar: TButton;
-    btnLogin: TButton;
     Label2: TLabel;
     Label4: TLabel;
     Label5: TLabel;
@@ -71,7 +70,7 @@ begin
   if txtSenha.Text <> txtConfirSenha.Text then
   begin
     lblMsg.Font.Color := clRed;
-    lblMsg.Caption := 'As senhas inseridas são diferentes';
+    lblMsg.Caption := 'As senhas são diferentes';
   end
   else
   if DM.qCadastro.FieldByName('cpf').AsString = txtCpf.Text then

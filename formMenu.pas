@@ -79,6 +79,7 @@ begin
   lblSaldo.Caption := DM.qDadosBancarios.FieldByName('saldo').AsString;
   lblAgencia.Caption := DM.qDadosBancarios.FieldByName('agencia').AsString;
   lblConta.Caption := DM.qDadosBancarios.FieldByName('conta').AsString;
+  DM.qCadastro.Refresh;
 end;
 
 procedure TformMenuInicial.Sacar2Click(Sender: TObject);

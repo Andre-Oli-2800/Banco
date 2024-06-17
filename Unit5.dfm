@@ -82,68 +82,6 @@ object DM: TDM
     Left = 72
     Top = 16
   end
-  object qCadastroTeste: TFDQuery
-    Active = True
-    MasterSource = dsCadastro
-    Connection = Conexao
-    SQL.Strings = (
-      'select * from cadastro')
-    Left = 72
-    Top = 104
-    object qCadastroTestecpf: TStringField
-      FieldName = 'cpf'
-      Origin = 'cpf'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
-    object qCadastroTestenome: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'nome'
-      Origin = 'nome'
-    end
-    object qCadastroTestesobrenome: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'sobrenome'
-      Origin = 'sobrenome'
-    end
-    object qCadastroTesteemail: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'email'
-      Origin = 'email'
-      Size = 50
-    end
-    object qCadastroTestesexo: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'sexo'
-      Origin = 'sexo'
-    end
-    object qCadastroTestedataNascimento: TDateField
-      AutoGenerateValue = arDefault
-      FieldName = 'dataNascimento'
-      Origin = 'dataNascimento'
-    end
-    object qCadastroTestetelefone: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'telefone'
-      Origin = 'telefone'
-    end
-    object qCadastroTestecelular: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'celular'
-      Origin = 'celular'
-    end
-    object qCadastroTestecartao: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'cartao'
-      Origin = 'cartao'
-    end
-    object qCadastroTestesenha: TStringField
-      AutoGenerateValue = arDefault
-      FieldName = 'senha'
-      Origin = 'senha'
-      Size = 100
-    end
-  end
   object qDadosBancarios: TFDQuery
     Active = True
     Connection = Conexao
@@ -185,7 +123,7 @@ object DM: TDM
     Connection = Conexao
     SQL.Strings = (
       'select * from cadastro')
-    Left = 536
-    Top = 392
+    Left = 72
+    Top = 104
   end
 end

@@ -72,7 +72,7 @@ object formTransferir: TformTransferir
     Height = 15
   end
   object lblMsg: TLabel
-    Left = 140
+    Left = 68
     Top = 414
     Width = 5
     Height = 28

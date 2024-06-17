@@ -44,7 +44,7 @@ cpf: String;
 begin
   DM.qDAdosBancarios.Close;
   DM.qDadosBancarios.SQL.CLear;
-  DM.qDadosBancarios.SQL.Add('Select saldo,cpf from dadosBancarios where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+  DM.qDadosBancarios.SQL.Add('Select saldo,cpf from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
   DM.qDadosBancarios.Open;
   if StrtoFloat(txtValor.Text) = 0 then
   begin

@@ -16,7 +16,6 @@ type
     Conexao: TFDConnection;
     tbCadastro: TFDTable;
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
-    qCadastroTeste: TFDQuery;
     qDadosBancarios: TFDQuery;
     dsDadosBancarios: TDataSource;
     dsExtrato: TDataSource;
@@ -31,16 +30,6 @@ type
     tbCadastrotelefone: TStringField;
     tbCadastrocelular: TStringField;
     tbCadastrosenha: TStringField;
-    qCadastroTestecpf: TStringField;
-    qCadastroTestenome: TStringField;
-    qCadastroTestesobrenome: TStringField;
-    qCadastroTesteemail: TStringField;
-    qCadastroTestesexo: TStringField;
-    qCadastroTestedataNascimento: TDateField;
-    qCadastroTestetelefone: TStringField;
-    qCadastroTestecelular: TStringField;
-    qCadastroTestecartao: TStringField;
-    qCadastroTestesenha: TStringField;
     qCadastro: TFDQuery;
     procedure tbCadastroAfterPost(DataSet: TDataSet);
     procedure tbCadastroBeforePost(DataSet: TDataSet);

@@ -3,7 +3,7 @@ object formEditarPerfil: TformEditarPerfil
   Top = 0
   BorderStyle = bsSingle
   Caption = 'formEditarPerfil'
-  ClientHeight = 561
+  ClientHeight = 551
   ClientWidth = 698
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -11,6 +11,7 @@ object formEditarPerfil: TformEditarPerfil
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  OnShow = FormShow
   TextHeight = 15
   object Label1: TLabel
     Left = 39
@@ -168,7 +169,7 @@ object formEditarPerfil: TformEditarPerfil
     ParentFont = False
   end
   object lblMsg: TLabel
-    Left = 166
+    Left = 219
     Top = 484
     Width = 5
     Height = 28
@@ -195,7 +196,7 @@ object formEditarPerfil: TformEditarPerfil
     ParentFont = False
   end
   object lblMsg2: TLabel
-    Left = 195
+    Left = 248
     Top = 484
     Width = 5
     Height = 28
@@ -222,24 +223,160 @@ object formEditarPerfil: TformEditarPerfil
     PasswordChar = '*'
     TabOrder = 0
   end
-  object cbSexo: TDBComboBox
-    Left = 494
-    Top = 173
-    Width = 164
-    Height = 36
-    DataField = 'sexo'
-    DataSource = DM.dsCadastro
+  object btnCadastrar: TButton
+    Left = 312
+    Top = 408
+    Width = 99
+    Height = 49
+    Caption = 'Editar'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -20
     Font.Name = 'Segoe UI'
     Font.Style = []
+    ParentFont = False
+    TabOrder = 1
+    OnClick = btnCadastrarClick
+  end
+  object Panel1: TPanel
+    Left = 248
+    Top = 56
+    Width = 185
+    Height = 37
+    TabOrder = 2
+  end
+  object txtDataNasc: TDateTimePicker
+    Left = 494
+    Top = 257
+    Width = 164
+    Height = 36
+    Date = 45459.000000000000000000
+    Time = 0.883911516204534600
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 3
+  end
+  object txtEmail: TEdit
+    Left = 124
+    Top = 216
+    Width = 163
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 4
+  end
+  object txtTelefone: TEdit
+    Left = 124
+    Top = 257
+    Width = 163
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 5
+  end
+  object txtCelular: TEdit
+    Left = 494
+    Top = 216
+    Width = 164
+    Height = 36
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 6
+  end
+  object txtNome: TEdit
+    Left = 124
+    Top = 174
+    Width = 163
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 7
+  end
+  object txtSenha: TEdit
+    Left = 124
+    Top = 300
+    Width = 163
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    PasswordChar = '*'
+    TabOrder = 8
+  end
+  object txtSobrenome: TEdit
+    Left = 494
+    Top = 131
+    Width = 164
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 9
+  end
+  object cbSexo: TComboBox
+    Left = 494
+    Top = 173
+    Width = 164
+    Height = 36
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 10
     Items.Strings = (
       'Masculino'
       'Feminino'
       'Outro')
+  end
+  object cbCartao: TComboBox
+    Left = 124
+    Top = 342
+    Width = 163
+    Height = 36
+    Enabled = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -20
+    Font.Name = 'Segoe UI'
+    Font.Style = []
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 11
+    Items.Strings = (
+      'Bradesco'
+      'Caixa'
+      'Nubank'
+      'Banco do Brasil'
+      'Ita'#250
+      'Santander')
   end
   object txtCpf: TDBEdit
     Left = 123
@@ -256,149 +393,6 @@ object formEditarPerfil: TformEditarPerfil
     Font.Style = []
     ParentFont = False
     ReadOnly = True
-    TabOrder = 2
-  end
-  object txtTelefone: TDBEdit
-    Left = 124
-    Top = 257
-    Width = 163
-    Height = 36
-    DataField = 'telefone'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 3
-  end
-  object txtSobrenome: TDBEdit
-    Left = 494
-    Top = 131
-    Width = 164
-    Height = 36
-    DataField = 'sobrenome'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 4
-  end
-  object txtDataNascimento: TDBEdit
-    Left = 494
-    Top = 257
-    Width = 164
-    Height = 36
-    DataField = 'dataNascimento'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 5
-  end
-  object txtNome: TDBEdit
-    Left = 123
-    Top = 174
-    Width = 164
-    Height = 36
-    DataField = 'nome'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 6
-  end
-  object txtEmail: TDBEdit
-    Left = 124
-    Top = 216
-    Width = 163
-    Height = 36
-    DataField = 'email'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 7
-  end
-  object txtSenha: TDBEdit
-    Left = 123
-    Top = 300
-    Width = 164
-    Height = 36
-    DataField = 'senha'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    PasswordChar = '*'
-    TabOrder = 8
-  end
-  object btnCadastrar: TButton
-    Left = 312
-    Top = 408
-    Width = 99
-    Height = 49
-    Caption = 'Editar'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 9
-    OnClick = btnCadastrarClick
-  end
-  object cbCartao: TDBComboBox
-    Left = 124
-    Top = 342
-    Width = 163
-    Height = 36
-    DataField = 'cartao'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 10
-  end
-  object Panel1: TPanel
-    Left = 248
-    Top = 56
-    Width = 185
-    Height = 37
-    TabOrder = 11
-  end
-  object txtCelular: TDBEdit
-    Left = 494
-    Top = 216
-    Width = 164
-    Height = 36
-    DataField = 'celular'
-    DataSource = DM.dsCadastro
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -20
-    Font.Name = 'Segoe UI'
-    Font.Style = []
-    ParentFont = False
     TabOrder = 12
   end
 end

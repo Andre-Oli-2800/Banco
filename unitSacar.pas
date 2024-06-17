@@ -36,7 +36,7 @@ implementation
 
 {$R *.dfm}
 
-uses Unit5, formMenu;
+uses Unit5, formMenu, unitEditarPerfil;
 
 procedure TformSacar.btnDepositarClick(Sender: TObject);
 var
@@ -45,7 +45,7 @@ cpf: String;
 begin
   DM.qDadosBancarios.Close;
   DM.qDadosBancarios.SQL.Clear;
-  DM.qDadosBancarios.SQL.Add('Select cpf,saldo from dadosBancarios where cpf = '''+DM.qCadastro.FieldByName('cpf').asString+'''');
+  DM.qDadosBancarios.SQL.Add('Select * from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
   DM.qDadosBancarios.Open;
   if StrtoFloat(txtValor.Text) = 0 then
   begin
@@ -90,7 +90,7 @@ saldo: Real;
 begin
   DM.qDAdosBancarios.Close;
   DM.qDadosBancarios.SQL.CLear;
-  DM.qDadosBancarios.SQL.Add('Select cpf,saldo from dadosBancarios where cpf = '''+DM.qCadastro.FieldByName('cpf').AsString+'''');
+  DM.qDadosBancarios.SQL.Add('Select cpf,saldo from dadosBancarios where cpf = '+''''+DM.qCadastro.FieldByName('cpf').AsString+'''');
   DM.qDadosBancarios.Open;
   if StrtoFloat(txtValor.Text) = 0 then
   begin
